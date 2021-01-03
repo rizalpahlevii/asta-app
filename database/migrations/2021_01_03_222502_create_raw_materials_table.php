@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVouchersTable extends Migration
+class CreateRawMaterialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateVouchersTable extends Migration
      */
     public function up()
     {
-        Schema::create('vouchers', function (Blueprint $table) {
+        Schema::create('raw_materials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code');
-            $table->integer('nominal_value');
-            $table->integer('percent_value');
-            $table->integer('minimum_order');
-            $table->integer('initial_quota');
-            $table->integer('remaining_quota');
+            $table->enum('unit', ['pcs', 'gram']);
+            $table->date('expired');
+            $table->decimal('amount', 8, 2);
+            $table->text('information');
+            $table->unsignedBigInteger('suplier_id');
             $table->unsignedBigInteger('franchise_id');
-            $table->date('expired_at');
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ class CreateVouchersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vouchers');
+        Schema::dropIfExists('raw_materials');
     }
 }
