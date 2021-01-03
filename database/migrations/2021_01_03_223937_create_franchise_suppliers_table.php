@@ -14,10 +14,8 @@ class CreateFranchiseSuppliersTable extends Migration
     public function up()
     {
         Schema::create('franchise_suppliers', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('franchise_id');
-            $table->unsignedBigInteger('suplier_id');
-            $table->timestamps();
+            $table->foreignId('franchise_id')->constrained();
+            $table->foreignId('suplier_id')->constrained();
         });
     }
 

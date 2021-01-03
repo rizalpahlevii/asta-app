@@ -16,4 +16,8 @@ class Franchise extends Model
     {
         return $this->belongsTo(FranchiseType::class, 'franchise_type_id', 'id');
     }
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'franchise_id', 'id');
+    }
 }
