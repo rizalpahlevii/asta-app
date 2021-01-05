@@ -34,14 +34,15 @@
         }
     },
     "autoload": {
-        "files": [
-            "App/Helpers/General.php"
-        ],
+
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/General.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
