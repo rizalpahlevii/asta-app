@@ -30,6 +30,12 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item {{ set_active(['admin.user.index','admin.user.create','admin.user.edit']) }}">
+                <a class="nav-link" href="{{ route('admin.user.index') }}">
+                    <i class="ion ion-ios-person"></i>
+                    <span class="nav-link-text">User</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0);">
                     <i class="ion ion-ios-archive"></i>

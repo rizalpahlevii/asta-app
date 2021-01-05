@@ -89,7 +89,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <input type="submit" name="submit" value="Save Franchise"
+                                    <input type="submit" name="submit" value="Update Franchise"
                                         class="btn btn-primary btn-sm">
                                     <a href="{{ route('admin.franchise.type.index') }}"
                                         class="btn btn-dark btn-sm">Back</a>

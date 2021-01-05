@@ -38,7 +38,7 @@
                                         <div class="col-sm-6">
                                             <input type="text" name="name"
                                                 class="form-control @error('name') is-invalid @enderror" id="name"
-                                                placeholder="Franchise Type Name" value="{{ old('name') }}">
+                                                placeholder="Franchise  Name" value="{{ old('name') }}">
                                             @error('name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -49,7 +49,8 @@
                                         <div class="col-sm-6">
                                             <input type="text" name="owner_name"
                                                 class="form-control @error('owner_name') is-invalid @enderror"
-                                                id="owner_name" placeholder="Owner Name" value="{{ old('name') }}">
+                                                id="owner_name" placeholder="Owner Name"
+                                                value="{{ old('owner_name') }}">
                                             @error('owner_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -60,7 +61,7 @@
                                         <div class="col-sm-6">
                                             <input type="text" name="address"
                                                 class="form-control @error('address') is-invalid @enderror" id="address"
-                                                placeholder="Address" value="{{ old('name') }}">
+                                                placeholder="Address" value="{{ old('address') }}">
                                             @error('address')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -84,8 +85,7 @@
                                     </div>
                                     <input type="submit" name="submit" value="Save Franchise"
                                         class="btn btn-primary btn-sm">
-                                    <a href="{{ route('admin.franchise.type.index') }}"
-                                        class="btn btn-dark btn-sm">Back</a>
+                                    <a href="{{ route('admin.franchise.index') }}" class="btn btn-dark btn-sm">Back</a>
                                 </form>
                             </div>
                         </div>
