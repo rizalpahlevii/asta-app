@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Flashdata;
 use App\Http\Controllers\Controller;
+use App\Models\Franchise;
+use App\Models\FranchiseType;
+use App\Models\User;
 use Illuminate\Http\Request;
+
+use function GuzzleHttp\Promise\all;
 
 class FranchiseController extends Controller
 {
@@ -14,7 +20,8 @@ class FranchiseController extends Controller
      */
     public function index()
     {
-        //
+        $franchises = Franchise::with('franchiseType')->get();
+        return view('pages.admin.franchise.index', compact('franchises'));
     }
 
     /**
@@ -24,7 +31,9 @@ class FranchiseController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::where('role', 'franchise')->doesntHave('franchise')->get();
+        $types = FranchiseType::all();
+        return view('pages.admin.franchise.create', compact('types', 'users'));
     }
 
     /**
@@ -35,7 +44,25 @@ class FranchiseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'type' => 'required',
+            'name' => 'required|min:3',
+            'owner_name' => 'required|min:3',
+            'address' => 'required|min:3',
+            'user' => 'required',
+        ]);
+        $franchise = new Franchise();
+        $franchise->franchise_type_id = $request->type;
+        $franchise->name = $request->name;
+        $franchise->owner_name = $request->owner_name;
+        $franchise->address = $request->address;
+        $franchise->user_id = $request->user;
+        if ($franchise->save()) {
+            Flashdata::success_alert("Success to create Franchise");
+        } else {
+            Flashdata::success_alert("Cannot to create Franchise");
+        }
+        return redirect(route('admin.franchise.index'));
     }
 
     /**
@@ -57,7 +84,10 @@ class FranchiseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::where('role', 'franchise')->doesntHave('franchise')->get();
+        $types = FranchiseType::all();
+        $franchise = Franchise::with('user')->find($id);
+        return view('pages.admin.franchise.edit', compact('users', 'types', 'franchise'));
     }
 
     /**
@@ -69,7 +99,25 @@ class FranchiseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'type' => 'required',
+            'name' => 'required|min:3',
+            'owner_name' => 'required|min:3',
+            'address' => 'required|min:3',
+            'user' => 'required',
+        ]);
+        $franchise = Franchise::find($id);
+        $franchise->franchise_type_id = $request->type;
+        $franchise->name = $request->name;
+        $franchise->owner_name = $request->owner_name;
+        $franchise->address = $request->address;
+        $franchise->user_id = $request->user;
+        if ($franchise->save()) {
+            Flashdata::success_alert("Success to update Franchise");
+        } else {
+            Flashdata::success_alert("Cannot to update Franchise");
+        }
+        return redirect(route('admin.franchise.index'));
     }
 
     /**
@@ -80,6 +128,12 @@ class FranchiseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $franchise = Franchise::find($id);
+        if ($franchise->delete()) {
+            Flashdata::success_alert("Success to delete Franchise");
+        } else {
+            Flashdata::success_alert("Cannot to delete Franchise");
+        }
+        return redirect(route('admin.franchise.index'));
     }
 }
