@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Routing\Route;
 
 function set_active($uri, $output = "active")
 {

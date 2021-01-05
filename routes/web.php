@@ -23,7 +23,6 @@ Route::get('/', function () {
 Route::name('admin.')->prefix('backoffice')->group(function ($app) {
     $app->get('/', [DashboardController::class, 'index'])->name('dashboard');
     $app->prefix('franchise')->name('franchise.')->group(function ($app) {
-        $app->get('/', [FranchiseController::class, 'index'])->name('index');
 
         $app->prefix('type')->name('type.')->group(function ($app) {
             $app->get('/', [FranchiseTypeController::class, 'index'])->name('index');
@@ -33,6 +32,13 @@ Route::name('admin.')->prefix('backoffice')->group(function ($app) {
             $app->put('/{id}', [FranchiseTypeController::class, 'update'])->name('update');
             $app->get('/{id}', [FranchiseTypeController::class, 'destroy'])->name('destroy');
         });
+
+        $app->get('/', [FranchiseController::class, 'index'])->name('index');
+        $app->get('/create', [FranchiseController::class, 'create'])->name('create');
+        $app->post('/', [FranchiseController::class, 'store'])->name('store');
+        $app->get('/{id}/edit', [FranchiseController::class, 'edit'])->name('edit');
+        $app->put('/{id}', [FranchiseController::class, 'update'])->name('update');
+        $app->get('/{id}', [FranchiseController::class, 'destroy'])->name('destroy');
     });
 });
 
