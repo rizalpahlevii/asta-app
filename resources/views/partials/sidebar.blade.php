@@ -2,7 +2,7 @@
     <div class="navbar-nav-wrap">
         <ul class="navbar-nav flex-column">
             <li class="nav-item active">
-                <a class="nav-link" href="javascript:void(0);">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="ion ion-ios-keypad"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
@@ -18,10 +18,10 @@
                         <ul class="nav flex-column">
 
                             <li class="nav-item">
-                                <a class="nav-link" href="lock-screen.html">Franchise</a>
+                                <a class="nav-link" href="{{ route('admin.franchise.index') }}">Franchise</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="404.html">Franchise Type</a>
+                                <a class="nav-link" href="{{ route('admin.franchise.type.index') }}">Franchise Type</a>
                             </li>
                         </ul>
                     </li>

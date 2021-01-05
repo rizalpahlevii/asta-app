@@ -31,8 +31,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return redirect(RouteServiceProvider::HOME);
+        if (auth()->user()->franchise) {
+            return redirect(route('franchise.dashboard'));
+        } else {
+            return redirect(route('admin.dashboard'));
+        }
     }
 
     /**

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FranchiseController;
+use App\Http\Controllers\Admin\FranchiseTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +20,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => 'auth', 'name' => 'admin.'], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::name('admin.')->prefix('backoffice')->group(function ($app) {
+    $app->get('/', [DashboardController::class, 'index'])->name('dashboard');
+    $app->prefix('franchise')->name('franchise.')->group(function ($app) {
+        $app->get('/', [FranchiseController::class, 'index'])->name('index');
+
+        $app->prefix('type')->name('type.')->group(function ($app) {
+            $app->get('/', [FranchiseTypeController::class, 'index'])->name('index');
+            $app->get('/create', [FranchiseTypeController::class, 'create'])->name('create');
+            $app->post('/', [FranchiseTypeController::class, 'store'])->name('store');
+            $app->get('/{id}/edit', [FranchiseTypeController::class, 'edit'])->name('edit');
+            $app->put('/{id}', [FranchiseTypeController::class, 'update'])->name('update');
+            $app->get('/{id}', [FranchiseTypeController::class, 'destroy'])->name('destroy');
+        });
+    });
 });
 
 require __DIR__ . '/auth.php';

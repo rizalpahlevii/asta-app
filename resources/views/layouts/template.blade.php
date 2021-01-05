@@ -85,7 +85,26 @@
 
         <!-- Main Content -->
         <div class="hk-pg-wrapper">
-            <div class="container-fluid mt-xl-50 mt-sm-30 mt-15">
+            <nav class="hk-breadcrumb" aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-light bg-transparent">
+                    <li class="breadcrumb-item"><a href="#">ASTA APP</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@yield('page')</li>
+                </ol>
+            </nav>
+
+            <div class="container-fluid  mt-sm-30 mt-15">
+                @if (Session::has('type'))
+                <div class="alert alert-inv alert-inv-{{ Session::get('type') }} alert-wth-icon alert-dismissible fade show"
+                    role="alert">
+                    <span class="alert-icon-wrap">
+                        <i class="{{Session::get('icon')}}"></i>
+                    </span>
+                    {{Session::get('message')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                @endif
                 @yield('content')
             </div>
 

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-xl navbar-light fixed-top hk-navbar">
     <a id="navbar_toggle_btn" class="navbar-toggle-btn nav-link-hover" href="javascript:void(0);"><i
             class="ion ion-ios-menu"></i></a>
-    <a class="navbar-brand" href="dashboard1.html">
+    <a class="navbar-brand" href="">
         <img class="brand-img d-inline-block mr-5" src="{{ asset('admin_template') }}/dist/img/logo.png"
             alt="brand" />Deepor
     </a>
@@ -54,8 +54,13 @@
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-power"></i><span>Log
-                        out</span></a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                this.closest('form').submit();"><i class="dropdown-icon zmdi zmdi-power"></i><span>Log
+                            out</span></a>
+
+                </form>
             </div>
         </li>
     </ul>
