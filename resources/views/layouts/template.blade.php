@@ -34,7 +34,11 @@
         <nav class="hk-nav hk-nav-light">
             <a href="javascript:void(0);" id="hk_nav_close" class="hk-nav-close"><span class="feather-icon"><i
                         data-feather="x"></i></span></a>
-            @include('partials.sidebar')
+            @if (auth()->user()->franchise)
+            @include('partials.franchise-sidebar')
+            @else
+            @include('partials.admin-sidebar')
+            @endif
         </nav>
         <div id="hk_nav_backdrop" class="hk-nav-backdrop"></div>
         <!-- /Vertical Nav -->

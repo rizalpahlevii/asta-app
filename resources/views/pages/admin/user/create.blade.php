@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="address" class="col-sm-2 col-form-label">Password</label>
+                                        <label for="password" class="col-sm-2 col-form-label">Password</label>
                                         <div class="col-sm-6">
                                             <input type="password" name="password"
                                                 class="form-control @error('password') is-invalid @enderror"
@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="type" class="col-sm-2 col-form-label">Role</label>
+                                        <label for="role" class="col-sm-2 col-form-label">Role</label>
                                         <div class="col-sm-6">
                                             <select name="role" id="role"
                                                 class="form-control @error('role') is-invalid @enderror">

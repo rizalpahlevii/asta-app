@@ -21,8 +21,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(function ($app) {
+    $app->get('/', [App\Http\Controllers\Franchise\DashboardController::class, 'index'])->name('dashboard');
+    $app->get('/dashboard', [App\Http\Controllers\Franchise\DashboardController::class, 'index'])->name('dashboard');
+
+    $app->prefix('orders')->name('order.')->group(function ($app) {
+    });
+    $app->prefix('vouchers')->name('voucher.')->group(function ($app) {
+        $app->get('/', [App\Http\Controllers\Franchise\VoucherController::class, 'index'])->name('index');
+        $app->get('/create', [App\Http\Controllers\Franchise\VoucherController::class, 'create'])->name('create');
+        $app->post('/', [App\Http\Controllers\Franchise\VoucherController::class, 'store'])->name('store');
+        $app->get('/{id}/edit', [App\Http\Controllers\Franchise\VoucherController::class, 'edit'])->name('edit');
+        $app->put('/{id}', [App\Http\Controllers\Franchise\VoucherController::class, 'update'])->name('update');
+        $app->get('/{id}/delete', [App\Http\Controllers\Franchise\VoucherController::class, 'destroy'])->name('destroy');
+    });
+});
+
 Route::name('admin.')->middleware('auth')->prefix('backoffice')->group(function ($app) {
     $app->get('/', [DashboardController::class, 'index'])->name('dashboard');
+    $app->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     $app->prefix('franchises')->name('franchise.')->group(function ($app) {
 
         $app->prefix('types')->name('type.')->group(function ($app) {

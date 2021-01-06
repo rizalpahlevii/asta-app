@@ -22,6 +22,7 @@ class CreateVouchersTable extends Migration
             $table->integer('minimum_order');
             $table->integer('initial_quota');
             $table->integer('remaining_quota');
+            $table->integer('used_quota')->default(0);
             $table->unsignedBigInteger('franchise_id');
             $table->date('expired_at');
             $table->timestamps();
