@@ -36,8 +36,9 @@
                     <span class="nav-link-text">User</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);">
+            <li
+                class="nav-item {{ set_active(['admin.supplier.index','admin.supplier.create','admin.supplier.edit']) }}">
+                <a class="nav-link" href="{{ route('admin.supplier.index') }}">
                     <i class="ion ion-ios-archive"></i>
                     <span class="nav-link-text">Suplier</span>
                 </a>

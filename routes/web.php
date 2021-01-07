@@ -70,6 +70,14 @@ Route::name('admin.')->middleware('auth')->prefix('backoffice')->group(function 
         $app->put('/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('update');
         $app->get('/{id}/delete', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('destroy');
     });
+    $app->prefix('suppliers')->name('supplier.')->group(function ($app) {
+        $app->get('/', [App\Http\Controllers\Admin\SupplierController::class, 'index'])->name('index');
+        $app->get('/create', [App\Http\Controllers\Admin\SupplierController::class, 'create'])->name('create');
+        $app->post('/', [App\Http\Controllers\Admin\SupplierController::class, 'store'])->name('store');
+        $app->get('/{id}/edit', [App\Http\Controllers\Admin\SupplierController::class, 'edit'])->name('edit');
+        $app->put('/{id}', [App\Http\Controllers\Admin\SupplierController::class, 'update'])->name('update');
+        $app->get('/{id}/delete', [App\Http\Controllers\Admin\SupplierController::class, 'destroy'])->name('destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';

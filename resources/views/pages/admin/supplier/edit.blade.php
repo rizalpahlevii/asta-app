@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('page','Edit User')
+@section('page','Edit Supplier')
 @section('content')
 <div class="hk-pg-header">
     <h4 class="hk-pg-title">@yield('page')</h4>
@@ -15,52 +15,54 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <form method="POST" class="needs-validations"
-                                    action="{{ route('admin.user.update',$user->id) }}" novalidate>
+                                    action="{{ route('admin.supplier.update',$supplier->id) }}" novalidate>
                                     @csrf
                                     @method('PUT')
-
                                     <div class="form-group row">
                                         <label for="name" class="col-sm-2 col-form-label">Name</label>
                                         <div class="col-sm-6">
                                             <input type="text" name="name"
                                                 class="form-control @error('name') is-invalid @enderror" id="name"
-                                                placeholder=" Name" value="{{ $user->name }}">
+                                                placeholder=" Name" value="{{ $supplier->name }}">
                                             @error('name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="username" class="col-sm-2 col-form-label">Username</label>
+                                        <label for="phone" class="col-sm-2 col-form-label">Phone</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="username"
-                                                class="form-control @error('username') is-invalid @enderror"
-                                                id="username" placeholder="User Name" value="{{ $user->username }}">
-                                            @error('username')
+                                            <input type="text" name="phone"
+                                                class="form-control @error('phone') is-invalid @enderror" id="phone"
+                                                placeholder="Phone" value="{{ $supplier->phone }}">
+                                            @error('phone')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
-                                        <label for="type" class="col-sm-2 col-form-label">Role</label>
+                                        <label for="address" class="col-sm-2 col-form-label">Address</label>
                                         <div class="col-sm-6">
-                                            <select name="role" id="role"
-                                                class="form-control @error('role') is-invalid @enderror">
-                                                <option disabled selected>--Choose option--</option>
-                                                <option value="admin" {{ $user->role == "admin" ? 'selected':'' }}>Admin
-                                                </option>
-                                                <option value="franchise"
-                                                    {{ $user->role == "franchise" ? 'selected':'' }}>
-                                                    Franchise</option>
-                                            </select>
-
-                                            @error('role')
+                                            <input type="text" name="address"
+                                                class="form-control @error('address') is-invalid @enderror" id="address"
+                                                placeholder="Address" value="{{ $supplier->address }}">
+                                            @error('address')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
-                                    <input type="submit" name="submit" value="Save User "
+                                    <div class="form-group row">
+                                        <label for="owner" class="col-sm-2 col-form-label">Owner Name</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="owner"
+                                                class="form-control @error('owner') is-invalid @enderror" id="owner"
+                                                placeholder="Owner Name" value="{{ $supplier->owner }}">
+                                            @error('owner')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="submit" value="Create User "
                                         class="btn btn-primary btn-sm">
                                     <a href="{{ route('admin.user.index') }}" class="btn btn-dark btn-sm">Back</a>
                                 </form>

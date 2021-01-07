@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('page','User')
+@section('page','Create User')
 @section('content')
 <div class="hk-pg-header">
     <h4 class="hk-pg-title">@yield('page')</h4>
@@ -66,7 +66,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <input type="submit" name="submit" value="Update User "
+                                    <input type="submit" name="submit" value="Create User "
                                         class="btn btn-primary btn-sm">
                                     <a href="{{ route('admin.user.index') }}" class="btn btn-dark btn-sm">Back</a>
                                 </form>
