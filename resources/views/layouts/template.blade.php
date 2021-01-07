@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>ASTA APP - @yield('page')</title>
+    <title>{{ config('app.name') }} - @yield('page')</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico">
