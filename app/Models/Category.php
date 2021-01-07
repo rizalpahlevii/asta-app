@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'franchise_id'];
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+    public function scopeWhereFranchise($query, $franchise_id)
+    {
+        return $query->where('franchise_id', $franchise_id);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('page','Voucher')
+@section('page','Create Voucher')
 @section('content')
 <div class="hk-pg-header">
     <h4 class="hk-pg-title">@yield('page')</h4>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Franchise;
 
+use App\Helpers\Flashdata;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::whereFranchise(auth()->user()->franchise->id)->get();
+        return view('pages.franchise.category.index', compact('categories'));
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.franchise.category.create');
     }
 
     /**
@@ -35,7 +38,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge(['franchise_id' => auth()->user()->franchise->id]);
+        $validated = $request->validate(['name' => 'required|min:3', 'franchise_id' => 'required']);
+        $category = new Category();
+        $category->create($validated);
+        Flashdata::success_alert("Success to create category");
+        return redirect(route('franchise.category.index'));
     }
 
     /**
@@ -57,7 +65,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('pages.franchise.category.edit', compact('category'));
     }
 
     /**
@@ -69,7 +78,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate(['name' => 'required|min:3']);
+        $category =  Category::find($id);
+        $category->update($validated);
+        Flashdata::success_alert("Success to update category");
+        return redirect(route('franchise.category.index'));
     }
 
     /**
@@ -80,6 +93,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+        Flashdata::success_alert("Success to delete category");
+        return redirect(route('franchise.category.index'));
     }
 }
