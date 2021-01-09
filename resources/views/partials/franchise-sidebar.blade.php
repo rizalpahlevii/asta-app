@@ -18,8 +18,12 @@
                         <ul class="nav flex-column">
 
                             <li
-                                class="nav-item {{ set_active(['franchise.voucher.index','franchise.voucher.create','franchise.voucher.index']) }}">
+                                class="nav-item {{ set_active(['franchise.voucher.index','franchise.voucher.create','franchise.voucher.index','franchise.supplier.index','franchise.supplier.create','franchise.supplier.index']) }}">
                                 <a class="nav-link" href="{{ route('franchise.voucher.index') }}">Voucher</a>
+                            </li>
+                            <li
+                                class="nav-item {{ set_active(['franchise.supplier.index','franchise.supplier.create','franchise.supplier.index']) }}">
+                                <a class="nav-link" href="{{ route('franchise.supplier.index') }}">Supplier</a>
                             </li>
                         </ul>
                     </li>

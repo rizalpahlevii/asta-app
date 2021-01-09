@@ -122,7 +122,7 @@
     </div>
     <!-- /HK Wrapper -->
     @include('partials.js')
-
+    @stack('script')
 </body>
 
 </html>
