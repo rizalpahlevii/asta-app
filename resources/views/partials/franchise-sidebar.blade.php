@@ -25,6 +25,10 @@
                                 class="nav-item {{ set_active(['franchise.supplier.index','franchise.supplier.create','franchise.supplier.index']) }}">
                                 <a class="nav-link" href="{{ route('franchise.supplier.index') }}">Supplier</a>
                             </li>
+                            <li
+                                class="nav-item {{ set_active(['franchise.material.index','franchise.material.create','franchise.material.index']) }}">
+                                <a class="nav-link" href="{{ route('franchise.material.index') }}">Material</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

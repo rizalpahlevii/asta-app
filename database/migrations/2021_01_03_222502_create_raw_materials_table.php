@@ -20,7 +20,7 @@ class CreateRawMaterialsTable extends Migration
             $table->date('expired');
             $table->decimal('amount', 8, 2);
             $table->text('information');
-            $table->unsignedBigInteger('suplier_id');
+            $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('franchise_id');
             $table->timestamps();
         });
