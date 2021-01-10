@@ -16,9 +16,8 @@
                 <ul id="auth_drp" class="nav flex-column collapse collapse-level-1">
                     <li class="nav-item">
                         <ul class="nav flex-column">
-
                             <li
-                                class="nav-item {{ set_active(['franchise.voucher.index','franchise.voucher.create','franchise.voucher.index','franchise.supplier.index','franchise.supplier.create','franchise.supplier.index']) }}">
+                                class="nav-item {{ set_active(['franchise.voucher.index','franchise.voucher.create','franchise.voucher.index','franchise.supplier.index','franchise.supplier.create','franchise.supplier.index','franchise.product.index','franchise.product.create','franchise.product.index']) }}">
                                 <a class="nav-link" href="{{ route('franchise.voucher.index') }}">Voucher</a>
                             </li>
                             <li
@@ -28,6 +27,10 @@
                             <li
                                 class="nav-item {{ set_active(['franchise.material.index','franchise.material.create','franchise.material.index']) }}">
                                 <a class="nav-link" href="{{ route('franchise.material.index') }}">Material</a>
+                            </li>
+                            <li
+                                class="nav-item {{ set_active(['franchise.product.index','franchise.product.create','franchise.product.index']) }}">
+                                <a class="nav-link" href="{{ route('franchise.product.index') }}">Product</a>
                             </li>
                         </ul>
                     </li>

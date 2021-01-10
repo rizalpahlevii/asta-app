@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('category_id');
             $table->integer('price');
-            $table->unsignedBigInteger('stock1')->comment('relation with raw material table');
-            $table->unsignedBigInteger('stock2')->comment('relation with raw material table');
+            $table->integer('discount');
+            $table->integer('final_price');
             $table->string('image');
             $table->text('information');
             $table->unsignedBigInteger('franchise_id');

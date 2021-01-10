@@ -20,12 +20,16 @@ class UserSeeder extends Seeder
                 'username' => 'rizalpahlevi',
                 'password' => bcrypt('123123123'),
                 'role' => 'admin',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'name' => 'Pahlevi',
                 'username' => 'pahlevi',
                 'password' => bcrypt('123123123'),
                 'role' => 'franchise',
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         ];
         User::insert($data);

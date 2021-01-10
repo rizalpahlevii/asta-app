@@ -55,6 +55,14 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
         $app->put('/{id}', [App\Http\Controllers\Franchise\RawMaterialController::class, 'update'])->name('update');
         $app->get('/{id}/delete', [App\Http\Controllers\Franchise\RawMaterialController::class, 'destroy'])->name('destroy');
     });
+    $app->prefix('products')->name('product.')->group(function ($app) {
+        $app->get('/', [App\Http\Controllers\Franchise\ProductController::class, 'index'])->name('index');
+        $app->get('/create', [App\Http\Controllers\Franchise\ProductController::class, 'create'])->name('create');
+        $app->post('/', [App\Http\Controllers\Franchise\ProductController::class, 'store'])->name('store');
+        $app->get('/{id}/edit', [App\Http\Controllers\Franchise\ProductController::class, 'edit'])->name('edit');
+        $app->put('/{id}', [App\Http\Controllers\Franchise\ProductController::class, 'update'])->name('update');
+        $app->get('/{id}/delete', [App\Http\Controllers\Franchise\ProductController::class, 'destroy'])->name('destroy');
+    });
 });
 
 Route::name('admin.')->middleware('auth')->prefix('backoffice')->group(function ($app) {
