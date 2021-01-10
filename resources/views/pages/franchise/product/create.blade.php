@@ -15,7 +15,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <form method="POST" class="needs-validations"
-                                    action="{{ route('franchise.product.store') }}" novalidate>
+                                    action="{{ route('franchise.product.store') }}" novalidate
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group row">
                                         <label for="name" class="col-sm-2 col-form-label">Product Name</label>
@@ -29,16 +30,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="name" class="col-sm-2 col-form-label">Product Name</label>
+                                        <label for="category_id" class="col-sm-2 col-form-label">Category Name</label>
                                         <div class="col-sm-6">
                                             <select name="category_id" id="category_id"
-                                                class="form-control @error('name') is-invalid @enderror">
+                                                class="form-control @error('category_id') is-invalid @enderror">
                                                 <option disabled selected>--Choose Option--</option>
                                                 @foreach ($categories as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('name')
+                                            @error('category_id')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -47,7 +48,7 @@
                                         <label for="price" class="col-sm-2 col-form-label">Price</label>
                                         <div class="col-sm-6">
                                             <input type="number" name="price"
-                                                class="form-control @error('name') is-invalid @enderror" id="price"
+                                                class="form-control @error('price') is-invalid @enderror" id="price"
                                                 placeholder="Product price" value="{{ old('price') }}">
                                             @error('price')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -58,39 +59,47 @@
                                         <label for="discount" class="col-sm-2 col-form-label">Discount</label>
                                         <div class="col-sm-6">
                                             <input type="number" name="discount"
-                                                class="form-control @error('name') is-invalid @enderror" id="discount"
-                                                placeholder="Product discount" value="{{ old('discount') }}">
+                                                class="form-control @error('discount') is-invalid @enderror"
+                                                id="discount" placeholder="Product discount"
+                                                value="{{ old('discount') }}">
                                             @error('discount')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="name" class="col-sm-2 col-form-label">Product Name</label>
+                                        <label for="final_price" class="col-sm-2 col-form-label">Final Price</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" name="final_price"
+                                                class="form-control @error('final_price') is-invalid @enderror"
+                                                id="final_price" disabled readonly>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="name" class="col-sm-2 col-form-label">Stock Name</label>
                                         <div class="col-sm-6">
                                             <select name="material_id1" id="material_id1"
-                                                class="form-control @error('name') is-invalid @enderror">
+                                                class="form-control @error('material_id1') is-invalid @enderror">
                                                 <option disabled selected>--Choose Option--</option>
                                                 @foreach ($materials as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('name')
+                                            @error('material_id1')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="name" class="col-sm-2 col-form-label">Product Name</label>
+                                        <label for="name" class="col-sm-2 col-form-label">Stock Name</label>
                                         <div class="col-sm-6">
-                                            <select name="material_id2" id="material_id2"
-                                                class="form-control @error('name') is-invalid @enderror">
+                                            <select name="material_id2" id="material_id2" disabled
+                                                class="form-control @error('material_id2') is-invalid @enderror">
                                                 <option disabled selected>--Choose Option--</option>
-                                                @foreach ($materials as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
+
                                             </select>
-                                            @error('name')
+                                            @error('material_id2')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -99,9 +108,21 @@
                                         <label for="image" class="col-sm-2 col-form-label">Image</label>
                                         <div class="col-sm-6">
                                             <input type="file" name="image"
-                                                class="form-control @error('name') is-invalid @enderror" id="image"
+                                                class="form-control @error('image') is-invalid @enderror" id="image"
                                                 placeholder="Product image" value="{{ old('image') }}">
                                             @error('image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="information" class="col-sm-2 col-form-label">Information</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="information"
+                                                class="form-control @error('information') is-invalid @enderror"
+                                                id="information" placeholder="Product information"
+                                                value="{{ old('information') }}">
+                                            @error('information')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -121,3 +142,46 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script>
+    $(document).ready(function(){
+        categories = [];
+        $('#material_id1').change(function(){
+            $('#material_id2').removeAttr('disabled');
+            createOptionElement($(this).val());
+        });
+
+        function createOptionElement(value){
+            option = '';
+            categories.forEach((item,i)=>{
+                if(value != item.id){
+                    option += `<option value="${item.id}">${item.name}</option>`
+                }
+            });
+            $('#material_id2').html(option);
+        }
+        getMaterials();
+        function getMaterials(){
+            $.ajax({
+                url : `{{ route('franchise.product.get_materials') }}`,
+                method : 'get',
+                dataType : 'json',
+                async : false,
+                success: function(response){
+                    categories = response;
+                }
+            });
+        }
+        $('#price').keyup(function(){
+            discount = $('#discount').val();
+            final_price = $(this).val() - discount;
+            $('#final_price').val(final_price);
+        });
+        $('#discount').keyup(function(){
+            price = $('#price').val();
+            final_price = price - $(this).val();
+            $('#final_price').val(final_price);
+        });
+    });
+</script>
+@endpush

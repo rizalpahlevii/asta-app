@@ -7,8 +7,12 @@
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <li
-                class="nav-item {{ set_active(['franchise.voucher.index','franchise.voucher.create','franchise.voucher.index']) }}">
+            <li class="nav-item {{ set_active([
+                    'franchise.voucher.index','franchise.voucher.create','franchise.voucher.edit',
+                    'franchise.supplier.index','franchise.supplier.create','franchise.supplier.edit',
+                    'franchise.product.index','franchise.product.create','franchise.product.edit',
+                    'franchise.category.index','franchise.category.create','franchise.category.edit'
+                    ]) }}">
                 <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#auth_drp">
                     <i class="ion ion-ios-apps"></i>
                     <span class="nav-link-text">Resources</span>
@@ -17,19 +21,23 @@
                     <li class="nav-item">
                         <ul class="nav flex-column">
                             <li
-                                class="nav-item {{ set_active(['franchise.voucher.index','franchise.voucher.create','franchise.voucher.index','franchise.supplier.index','franchise.supplier.create','franchise.supplier.index','franchise.product.index','franchise.product.create','franchise.product.index']) }}">
+                                class="nav-item {{ set_active(['franchise.voucher.index','franchise.voucher.create','franchise.voucher.edit']) }}">
                                 <a class="nav-link" href="{{ route('franchise.voucher.index') }}">Voucher</a>
                             </li>
                             <li
-                                class="nav-item {{ set_active(['franchise.supplier.index','franchise.supplier.create','franchise.supplier.index']) }}">
+                                class="nav-item {{ set_active(['franchise.category.index','franchise.category.create','franchise.category.edit']) }}">
+                                <a class="nav-link" href="{{ route('franchise.category.index') }}">Category</a>
+                            </li>
+                            <li
+                                class="nav-item {{ set_active(['franchise.supplier.index','franchise.supplier.create','franchise.supplier.edit']) }}">
                                 <a class="nav-link" href="{{ route('franchise.supplier.index') }}">Supplier</a>
                             </li>
                             <li
-                                class="nav-item {{ set_active(['franchise.material.index','franchise.material.create','franchise.material.index']) }}">
+                                class="nav-item {{ set_active(['franchise.material.index','franchise.material.create','franchise.material.edit']) }}">
                                 <a class="nav-link" href="{{ route('franchise.material.index') }}">Material</a>
                             </li>
                             <li
-                                class="nav-item {{ set_active(['franchise.product.index','franchise.product.create','franchise.product.index']) }}">
+                                class="nav-item {{ set_active(['franchise.product.index','franchise.product.create','franchise.product.edit']) }}">
                                 <a class="nav-link" href="{{ route('franchise.product.index') }}">Product</a>
                             </li>
                         </ul>

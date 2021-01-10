@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Supplier;
 use Illuminate\Database\Seeder;
 
 class SupplierSeeder extends Seeder
@@ -19,7 +20,10 @@ class SupplierSeeder extends Seeder
                 'address' => 'MOJO CLUWAK PATI',
                 'phone' => '01982399787',
                 'owner' => 'WIWIT',
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         ];
+        Supplier::insert($data);
     }
 }

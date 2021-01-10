@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Franchise;
 
+use App\Helpers\Flashdata;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductMaterial;
 use App\Models\RawMaterial;
 use Illuminate\Http\Request;
 
@@ -41,7 +43,41 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'category_id' => 'required',
+            'price' => 'required',
+            'discount' => 'required',
+            'material_id1' => 'required',
+            'material_id2' => 'required',
+            'image' => 'required|mimes:jpg,jpeg,png',
+            'information' => 'required',
+        ]);
+        $imageName = time() . auth()->user()->franchise->id . '.' .  $request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
+        $product = new Product();
+        $product->name = $request->name;
+        $product->category_id = $request->category_id;
+        $product->price = $request->price;
+        $product->discount = $request->discount;
+        $product->final_price = $request->price - $request->discount;
+        $product->franchise_id = auth()->user()->franchise->id;
+        $product->image = $imageName;
+        $product->information = $request->information;
+        $product->save();
+
+        $productMaterial1 = new ProductMaterial();
+        $productMaterial1->product_id = $product->id;
+        $productMaterial1->raw_material_id = $request->material_id1;
+        $productMaterial1->save();
+
+        $productMaterial2 = new ProductMaterial();
+        $productMaterial2->product_id = $product->id;
+        $productMaterial2->raw_material_id = $request->material_id2;
+        $productMaterial2->save();
+
+        Flashdata::success_alert("Success to create product");
+        return redirect(route('franchise.product.index'));
     }
 
     /**
@@ -87,5 +123,10 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getMaterials()
+    {
+        return response()->json(RawMaterial::whereFranchise(auth()->user()->franchise->id)->get());
     }
 }

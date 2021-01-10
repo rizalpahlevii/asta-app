@@ -56,6 +56,7 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
         $app->get('/{id}/delete', [App\Http\Controllers\Franchise\RawMaterialController::class, 'destroy'])->name('destroy');
     });
     $app->prefix('products')->name('product.')->group(function ($app) {
+        $app->get('/get-materials', [App\Http\Controllers\Franchise\ProductController::class, 'getMaterials'])->name('get_materials');
         $app->get('/', [App\Http\Controllers\Franchise\ProductController::class, 'index'])->name('index');
         $app->get('/create', [App\Http\Controllers\Franchise\ProductController::class, 'create'])->name('create');
         $app->post('/', [App\Http\Controllers\Franchise\ProductController::class, 'store'])->name('store');

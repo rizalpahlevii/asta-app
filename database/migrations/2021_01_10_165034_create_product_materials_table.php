@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRawMaterialProductsTable extends Migration
+class CreateProductMaterialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRawMaterialProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('raw_material_products', function (Blueprint $table) {
+        Schema::create('product_materials', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('raw_material_id');
@@ -28,6 +28,6 @@ class CreateRawMaterialProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('raw_material_products');
+        Schema::dropIfExists('product_materials');
     }
 }
