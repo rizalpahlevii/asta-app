@@ -40,6 +40,10 @@
                                 class="nav-item {{ set_active(['franchise.product.index','franchise.product.create','franchise.product.edit']) }}">
                                 <a class="nav-link" href="{{ route('franchise.product.index') }}">Product</a>
                             </li>
+                            <li
+                                class="nav-item {{ set_active(['franchise.employee.index','franchise.employee.create','franchise.employee.edit']) }}">
+                                <a class="nav-link" href="{{ route('franchise.employee.index') }}">Employee</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

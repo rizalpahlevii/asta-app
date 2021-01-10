@@ -64,6 +64,14 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
         $app->put('/{id}', [App\Http\Controllers\Franchise\ProductController::class, 'update'])->name('update');
         $app->get('/{id}/delete', [App\Http\Controllers\Franchise\ProductController::class, 'destroy'])->name('destroy');
     });
+    $app->prefix('employees')->name('employee.')->group(function ($app) {
+        $app->get('/', [App\Http\Controllers\Franchise\EmployeeController::class, 'index'])->name('index');
+        $app->get('/create', [App\Http\Controllers\Franchise\EmployeeController::class, 'create'])->name('create');
+        $app->post('/', [App\Http\Controllers\Franchise\EmployeeController::class, 'store'])->name('store');
+        $app->get('/{id}/edit', [App\Http\Controllers\Franchise\EmployeeController::class, 'edit'])->name('edit');
+        $app->put('/{id}', [App\Http\Controllers\Franchise\EmployeeController::class, 'update'])->name('update');
+        $app->get('/{id}/delete', [App\Http\Controllers\Franchise\EmployeeController::class, 'destroy'])->name('destroy');
+    });
 });
 
 Route::name('admin.')->middleware('auth')->prefix('backoffice')->group(function ($app) {
