@@ -18,6 +18,7 @@
                                     action="{{ route('franchise.product.store') }}" novalidate
                                     enctype="multipart/form-data">
                                     @csrf
+
                                     <div class="form-group row">
                                         <label for="name" class="col-sm-2 col-form-label">Product Name</label>
                                         <div class="col-sm-6">
@@ -127,9 +128,9 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <input type="submit" name="submit" value="Save Franchise"
+                                    <input type="submit" name="submit" value="Save Product"
                                         class="btn btn-primary btn-sm">
-                                    <a href="{{ route('franchise.category.index') }}"
+                                    <a href="{{ route('franchise.product.index') }}"
                                         class="btn btn-dark btn-sm">Back</a>
                                 </form>
                             </div>

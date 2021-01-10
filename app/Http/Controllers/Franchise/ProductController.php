@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductMaterial;
 use App\Models\RawMaterial;
 use Illuminate\Http\Request;
+use File;
 
 class ProductController extends Controller
 {
@@ -99,7 +100,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::whereFranchise(auth()->user()->franchise->id)->get();
+        $materials = RawMaterial::whereFranchise(auth()->user()->franchise->id)->get();
+        $product = Product::with('category')->findOrFail($id);
+        $productMaterials = ProductMaterial::with('product', 'rawMaterial')->where('product_id', $product->id)->get()->toArray();
+        return view('pages.franchise.product.edit', compact('categories', 'materials', 'product', 'productMaterials'));
     }
 
     /**
@@ -111,7 +116,46 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'name' => 'required',
+            'category_id' => 'required',
+            'price' => 'required',
+            'discount' => 'required',
+            'material_id1' => 'required',
+            'material_id2' => 'required',
+            'information' => 'required',
+        ];
+        if ($request->image) {
+            $rules['image'] = 'required|mimes:jpg,jpeg,png';
+        }
+        $validated = $request->validate($rules);
+        $product = Product::find($id);
+        $product->name = $request->name;
+        $product->category_id = $request->category_id;
+        $product->price = $request->price;
+        $product->discount = $request->discount;
+        $product->final_price = $request->price - $request->discount;
+        $product->franchise_id = auth()->user()->franchise->id;
+        if ($request->image) {
+            $oldImage = $product->image;
+            $imageName = time() . auth()->user()->franchise->id . '.' .  $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $product->image = $imageName;
+            File::delete(public_path('images/') . $oldImage);
+        }
+        $product->information = $request->information;
+        $product->save();
+
+        $productMaterial1 =  ProductMaterial::find($request->raw_material_id1);
+        $productMaterial1->raw_material_id = $request->material_id1;
+        $productMaterial1->save();
+
+        $productMaterial2 =  ProductMaterial::find($request->raw_material_id2);
+        $productMaterial2->raw_material_id = $request->material_id2;
+        $productMaterial2->save();
+
+        Flashdata::success_alert("Success to update product");
+        return redirect(route('franchise.product.index'));
     }
 
     /**
@@ -122,7 +166,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        File::delete(public_path('images/') . $product->image);
+        $product->delete();
+        Flashdata::success_alert("Success to delete category");
+        return redirect(route('franchise.product.index'));
     }
 
     public function getMaterials()
