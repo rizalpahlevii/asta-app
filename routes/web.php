@@ -70,6 +70,12 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
         $app->get('/get-products', [App\Http\Controllers\Franchise\OrderController::class, 'getProducts'])->name('get_products');
         $app->post('/check-voucher', [App\Http\Controllers\Franchise\OrderController::class, 'checkVoucher'])->name('check_voucher');
     });
+    $app->prefix('reports')->name('report.')->group(function ($app) {
+        $app->get('/', [App\Http\Controllers\Franchise\ReportController::class, 'index'])->name('index');
+    });
+    $app->prefix('settings')->name('setting.')->group(function ($app) {
+        $app->get('/', [App\Http\Controllers\Franchise\ReportController::class, 'index'])->name('index');
+    });
     $app->prefix('employees')->name('employee.')->group(function ($app) {
         $app->prefix('salaries')->name('salary.')->group(function ($app) {
             $app->get('/', [App\Http\Controllers\Franchise\EmployeeSalaryController::class, 'index'])->name('index');
