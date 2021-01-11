@@ -64,7 +64,24 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
         $app->put('/{id}', [App\Http\Controllers\Franchise\ProductController::class, 'update'])->name('update');
         $app->get('/{id}/delete', [App\Http\Controllers\Franchise\ProductController::class, 'destroy'])->name('destroy');
     });
+    $app->prefix('orders')->name('order.')->group(function ($app) {
+        $app->get('/', [App\Http\Controllers\Franchise\OrderController::class, 'index'])->name('index');
+        $app->post('/save-order', [App\Http\Controllers\Franchise\OrderController::class, 'store'])->name('save_order');
+        $app->get('/get-products', [App\Http\Controllers\Franchise\OrderController::class, 'getProducts'])->name('get_products');
+        $app->post('/check-voucher', [App\Http\Controllers\Franchise\OrderController::class, 'checkVoucher'])->name('check_voucher');
+    });
     $app->prefix('employees')->name('employee.')->group(function ($app) {
+        $app->prefix('salaries')->name('salary.')->group(function ($app) {
+            $app->get('/', [App\Http\Controllers\Franchise\EmployeeSalaryController::class, 'index'])->name('index');
+            $app->get('/create', [App\Http\Controllers\Franchise\EmployeeSalaryController::class, 'create'])->name('create');
+            $app->post('/', [App\Http\Controllers\Franchise\EmployeeSalaryController::class, 'store'])->name('store');
+            $app->get('/{id}/edit', [App\Http\Controllers\Franchise\EmployeeSalaryController::class, 'edit'])->name('edit');
+            $app->put('/{id}', [App\Http\Controllers\Franchise\EmployeeSalaryController::class, 'update'])->name('update');
+            $app->get('/{id}/delete', [App\Http\Controllers\Franchise\EmployeeSalaryController::class, 'destroy'])->name('destroy');
+        });
+
+
+
         $app->get('/', [App\Http\Controllers\Franchise\EmployeeController::class, 'index'])->name('index');
         $app->get('/create', [App\Http\Controllers\Franchise\EmployeeController::class, 'create'])->name('create');
         $app->post('/', [App\Http\Controllers\Franchise\EmployeeController::class, 'store'])->name('store');

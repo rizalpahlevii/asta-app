@@ -11,7 +11,9 @@
                     'franchise.voucher.index','franchise.voucher.create','franchise.voucher.edit',
                     'franchise.supplier.index','franchise.supplier.create','franchise.supplier.edit',
                     'franchise.product.index','franchise.product.create','franchise.product.edit',
-                    'franchise.category.index','franchise.category.create','franchise.category.edit'
+                    'franchise.category.index','franchise.category.create','franchise.category.edit',
+                    'franchise.employee.salary.index','franchise.employee.salary.create','franchise.employee.salary.edit',
+                    'franchise.order.index'
                     ]) }}">
                 <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#auth_drp">
                     <i class="ion ion-ios-apps"></i>
@@ -23,6 +25,9 @@
                             <li
                                 class="nav-item {{ set_active(['franchise.voucher.index','franchise.voucher.create','franchise.voucher.edit']) }}">
                                 <a class="nav-link" href="{{ route('franchise.voucher.index') }}">Voucher</a>
+                            </li>
+                            <li class="nav-item {{ set_active(['franchise.order.index']) }}">
+                                <a class="nav-link" href="{{ route('franchise.order.index') }}">Order</a>
                             </li>
                             <li
                                 class="nav-item {{ set_active(['franchise.category.index','franchise.category.create','franchise.category.edit']) }}">
@@ -43,6 +48,11 @@
                             <li
                                 class="nav-item {{ set_active(['franchise.employee.index','franchise.employee.create','franchise.employee.edit']) }}">
                                 <a class="nav-link" href="{{ route('franchise.employee.index') }}">Employee</a>
+                            </li>
+                            <li
+                                class="nav-item {{ set_active(['franchise.employee.salary.index','franchise.employee.salary.create','franchise.employee.salary.edit']) }}">
+                                <a class="nav-link" href="{{ route('franchise.employee.salary.index') }}">Employee
+                                    Salary</a>
                             </li>
                         </ul>
                     </li>

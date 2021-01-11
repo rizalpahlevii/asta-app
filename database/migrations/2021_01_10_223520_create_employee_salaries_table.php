@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreateEmployeeSalariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('employee_salaries', function (Blueprint $table) {
             $table->id();
-            $table->integer('total_pay');
-            $table->integer('discount');
-            $table->integer('voucher_discount');
-            $table->integer('normal_price');
-            $table->integer('pay');
-            $table->unsignedBigInteger('voucher_id')->nullable();
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('franchise_id');
+            $table->integer('month');
+            $table->integer('year');
+            $table->integer('salary');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('employee_salaries');
     }
 }
