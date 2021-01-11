@@ -44,7 +44,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);">
+                <a class="nav-link" href="{{ route('admin.setting.index') }}">
                     <i class="ion ion-ios-settings"></i>
                     <span class="nav-link-text">Setting</span>
                 </a>

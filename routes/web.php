@@ -135,6 +135,10 @@ Route::name('admin.')->middleware('auth')->prefix('backoffice')->group(function 
         $app->put('/{id}', [App\Http\Controllers\Admin\SupplierController::class, 'update'])->name('update');
         $app->get('/{id}/delete', [App\Http\Controllers\Admin\SupplierController::class, 'destroy'])->name('destroy');
     });
+    $app->prefix('settings')->name('setting.')->group(function ($app) {
+        $app->get('/', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('index');
+        $app->put('/', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('update');
+    });
 });
 
 require __DIR__ . '/auth.php';
