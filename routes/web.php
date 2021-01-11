@@ -74,7 +74,8 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
         $app->get('/', [App\Http\Controllers\Franchise\ReportController::class, 'index'])->name('index');
     });
     $app->prefix('settings')->name('setting.')->group(function ($app) {
-        $app->get('/', [App\Http\Controllers\Franchise\ReportController::class, 'index'])->name('index');
+        $app->get('/', [App\Http\Controllers\Franchise\SettingController::class, 'index'])->name('index');
+        $app->put('/', [App\Http\Controllers\Franchise\SettingController::class, 'update'])->name('update');
     });
     $app->prefix('employees')->name('employee.')->group(function ($app) {
         $app->prefix('salaries')->name('salary.')->group(function ($app) {
