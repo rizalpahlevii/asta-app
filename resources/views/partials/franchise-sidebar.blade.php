@@ -67,7 +67,7 @@
             <li class="nav-item {{ set_active('franchise.setting.index') }}">
                 <a class="nav-link" href="{{ route('franchise.setting.index') }}">
                     <i class="ion ion-ios-settings"></i>
-                    <span class="nav-link-text">Setting</span>
+                    <span class="nav-link-text">Account Setting</span>
                 </a>
             </li>
         </ul>
