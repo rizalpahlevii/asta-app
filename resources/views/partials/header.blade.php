@@ -36,7 +36,7 @@
                 <a class="dropdown-item" href="{{ route('franchise.setting.index') }}"><i
                         class="dropdown-icon zmdi zmdi-account"></i><span>Profile</span></a>
                 @else
-                <a class="dropdown-item" href="profile.html"><i
+                <a class="dropdown-item" href="{{ route('admin.setting.index') }}"><i
                         class="dropdown-icon zmdi zmdi-account"></i><span>Profile</span></a>
                 @endif
                 <a class="dropdown-item" href="#"><i
