@@ -78,6 +78,9 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
     $app->prefix('settings')->name('setting.')->group(function ($app) {
         $app->get('/', [App\Http\Controllers\Franchise\SettingController::class, 'index'])->name('index');
         $app->put('/', [App\Http\Controllers\Franchise\SettingController::class, 'update'])->name('update');
+
+        $app->get('/password', [App\Http\Controllers\Franchise\SettingController::class, 'password'])->name('password.index');
+        $app->put('/password', [App\Http\Controllers\Franchise\SettingController::class, 'updatePassword'])->name('password.update');
     });
     $app->prefix('employees')->name('employee.')->group(function ($app) {
         $app->prefix('salaries')->name('salary.')->group(function ($app) {
@@ -140,6 +143,10 @@ Route::name('admin.')->middleware('auth')->prefix('backoffice')->group(function 
     $app->prefix('settings')->name('setting.')->group(function ($app) {
         $app->get('/', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('index');
         $app->put('/', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('update');
+
+
+        $app->get('/password', [App\Http\Controllers\Admin\SettingController::class, 'password'])->name('password.index');
+        $app->put('/password', [App\Http\Controllers\Admin\SettingController::class, 'updatePassword'])->name('password.update');
     });
 });
 

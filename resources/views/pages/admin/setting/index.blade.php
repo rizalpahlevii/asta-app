@@ -30,13 +30,24 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                        <label for="username" class="col-sm-2 col-form-label">Username</label>
                                         <div class="col-sm-6">
                                             <input type="text" name="username"
                                                 class="form-control @error('username') is-invalid @enderror"
                                                 id="username" placeholder="UserName"
                                                 value="{{ auth()->user()->username}}">
                                             @error('username')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-6">
+                                            <input type="email" name="email"
+                                                class="form-control @error('email') is-invalid @enderror" id="email"
+                                                placeholder="email" value="{{ auth()->user()->email}}">
+                                            @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>

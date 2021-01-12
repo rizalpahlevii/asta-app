@@ -39,9 +39,18 @@
                 <a class="dropdown-item" href="{{ route('admin.setting.index') }}"><i
                         class="dropdown-icon zmdi zmdi-account"></i><span>Profile</span></a>
                 @endif
-                <a class="dropdown-item" href="#"><i
-                        class="dropdown-icon zmdi zmdi-settings"></i><span>Settings</span></a>
 
+                @if (auth()->user()->franchise)
+                <a class="dropdown-item" href="{{ route('franchise.setting.password.index') }}"><i
+                        class="dropdown-icon zmdi zmdi-settings"></i><span>Update
+                        Password</span></a>
+
+                @else
+                <a class="dropdown-item" href="{{ route('admin.setting.password.index') }}"><i
+                        class="dropdown-icon zmdi zmdi-settings"></i><span>Update
+                        Password</span></a>
+
+                @endif
                 <div class="dropdown-divider"></div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

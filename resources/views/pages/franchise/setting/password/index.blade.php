@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('page','Setting')
+@section('page','Update Password')
 @section('content')
 <div class="hk-pg-header">
     <h4 class="hk-pg-title">@yield('page')</h4>
@@ -15,43 +15,44 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <form method="POST" class="needs-validations"
-                                    action="{{ route('franchise.setting.update') }}" novalidate>
+                                    action="{{ route('franchise.setting.password.update') }}" novalidate>
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group row">
-                                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                        <label for="old_password" class="col-sm-2 col-form-label">Old Password</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="name"
-                                                class="form-control @error('name') is-invalid @enderror" id="name"
-                                                placeholder="Name" value="{{ auth()->user()->name}}">
+                                            <input type="password" name="old_password"
+                                                class="form-control @error('old_password') is-invalid @enderror"
+                                                id="old_password" placeholder="Old Password">
                                             @error('name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="username" class="col-sm-2 col-form-label">Username</label>
+                                        <label for="password" class="col-sm-2 col-form-label"> Password</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="username"
-                                                class="form-control @error('username') is-invalid @enderror"
-                                                id="username" placeholder="UserName"
-                                                value="{{ auth()->user()->username}}">
-                                            @error('username')
+                                            <input type="password" name="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                id="password" placeholder="New Password">
+                                            @error('password')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                        <label for="password_confirmation" class="col-sm-2 col-form-label"> Password
+                                            Confirmation</label>
                                         <div class="col-sm-6">
-                                            <input type="email" name="email"
-                                                class="form-control @error('email') is-invalid @enderror" id="email"
-                                                placeholder="email" value="{{ auth()->user()->email}}">
-                                            @error('email')
+                                            <input type="password" name="password_confirmation"
+                                                class="form-control @error('password_confirmation') is-invalid @enderror"
+                                                id="password_confirmation" placeholder=" Password Confirmation">
+                                            @error('password_confirmation')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
+
                                     <input type="submit" name="submit" value="Update" class="btn btn-primary btn-sm">
 
                                 </form>
