@@ -7,9 +7,11 @@ use App\Models\Employee;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\RawMaterial;
 use App\Models\Voucher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -34,23 +36,40 @@ class OrderController extends Controller
         $order = new Order();
         $order->pay = $request->pay;
         $order->normal_price = $normal_price;
-        $order->total_pay = $total_pay;
         $order->discount = $discount;
         if ($request['order_data']) {
-
-            $order->discount_voucher = $request['order_data']['voucher_value'];
+            $voucher = Voucher::find($request['order_data']['voucher_id']);
+            if ($voucher->type == "percent") {
+                $order->voucher_discount = ($order->total_pay / 100) * $voucher->percent_value;
+            } else {
+                $order->voucher_discount = $voucher->nominal_value;
+            }
             $order->voucher_id = $request['order_data']['voucher_id'];
         }
+        $order->total_pay = $total_pay - $order->voucher_discount;
         $order->employee_id = $request->employee_id;
         $order->franchise_id = auth()->user()->franchise->id;
         $order->save();
         foreach ($request['products'] as $row) {
+            $product = Product::with('productMaterials')->find($row['product_id']);
             $detail = new OrderDetail();
             $detail->order_id = $order->id;
             $detail->product_id = $row['product_id'];
             $detail->quantity = $row['quantity'];
+            $detail->price = $product->price;
+            $detail->discount = $product->discount;
+            $detail->final_price = $product->final_price;
             $detail->subtotal = $row['subtotal'];
+            $detail->discount_subtotal = $row['subtotal_discount'];
             $detail->save();
+            $materials_id = [];
+            foreach ($product->productMaterials as $item) {
+                $materials_id[] = $item->raw_material_id;
+            }
+            self::updateMaterial($materials_id, $row['quantity']);
+        }
+        if ($request['order_data']) {
+            self::updateVoucher($request['order_data']['voucher_id']);
         }
         return response()->json(['status' => true, 'message' => 'Success to order']);
     }
@@ -63,6 +82,21 @@ class OrderController extends Controller
         $products = $products->get();
         return response()->json($products);
     }
+    private static function updateVoucher($voucher_id)
+    {
+        $voucher = Voucher::find($voucher_id);
+        $voucher->remaining_quota -= 1;
+        $voucher->used_quota += 1;
+        $voucher->save();
+    }
+    private static function updateMaterial($materials_id, $quantity)
+    {
+        foreach ($materials_id as $row) {
+            $material = RawMaterial::find($row);
+            $material->amount -= ($quantity * 1);
+            $material->save();
+        }
+    }
     public function checkVoucher(Request $request)
     {
         $voucher = Voucher::whereFranchise(auth()->user()->franchise->id)
@@ -71,23 +105,51 @@ class OrderController extends Controller
         if ($voucher) {
             if ($request->order_value >= $voucher->minimum_order) {
                 if ($voucher->remaining_quota > 0) {
-                    $status = true;
-                    $message = 'Success add voucher to order';
+                    if ($voucher->type == 'percent') {
+                        $status = true;
+                        $message = "Success to add voucher";
+                        $data = [
+                            'id' => $voucher->id,
+                            'name' => $voucher->name,
+                            'nominal_value' => floor(($request->order_value / 100) * $voucher->percent_value),
+                        ];
+                    } else {
+
+                        $status = true;
+                        $message = "Success to add voucher";
+                        $data = [
+                            'id' => $voucher->id,
+                            'name' => $voucher->name,
+                            'nominal_value' =>  $voucher->nominal_value,
+                        ];
+                    }
+                } else {
+                    $status = false;
+                    $message = 'Failed! Voucher quota has run out';
+                    $data = [];
                 }
             } else {
                 $status = false;
                 $message = 'Failed! Minimum order ' . $voucher->minimum_order;
+                $data = [];
             }
         } else {
             $data = [];
             $status = false;
             $message = 'Voucher not found';
         }
-        $data = [
+        $response = [
             'status' => $status,
             'message' => $message,
-            'data' => $voucher
+            'data' => $data
         ];
-        return response()->json($data);
+        return response()->json($response);
+    }
+    public function struk($order_id)
+    {
+        $order = Order::with('orderDetails.product', 'employee')->find($order_id);
+        view()->share('order', $order);
+        $pdf = PDF::loadView('pages.franchise.order.pdf', $order);
+        return $pdf->download('struk.pdf');
     }
 }

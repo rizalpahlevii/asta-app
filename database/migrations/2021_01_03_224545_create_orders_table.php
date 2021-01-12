@@ -15,10 +15,10 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('total_pay');
+            $table->integer('normal_price');
             $table->integer('discount');
             $table->integer('voucher_discount');
-            $table->integer('normal_price');
+            $table->integer('total_pay');
             $table->integer('pay');
             $table->unsignedBigInteger('voucher_id')->nullable();
             $table->unsignedBigInteger('employee_id');

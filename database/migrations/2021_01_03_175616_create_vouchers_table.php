@@ -25,6 +25,7 @@ class CreateVouchersTable extends Migration
             $table->integer('used_quota')->default(0);
             $table->unsignedBigInteger('franchise_id');
             $table->date('expired_at');
+            $table->enum('type', ['percent', 'nominal']);
             $table->timestamps();
         });
     }

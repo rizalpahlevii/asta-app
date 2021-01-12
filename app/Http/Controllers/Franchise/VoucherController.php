@@ -58,6 +58,11 @@ class VoucherController extends Controller
         $voucher->remaining_quota = $request->initial_quota;
         $voucher->expired_at = $request->expired_at;
         $voucher->franchise_id = auth()->user()->franchise->id;
+        if ($request->percent_value > 0) {
+            $voucher->type = 'percent';
+        } else {
+            $voucher->type = 'nominal';
+        }
         $voucher->save();
         Flashdata::success_alert("Success to create voucher");
         return redirect(route('franchise.voucher.index'));
@@ -113,6 +118,11 @@ class VoucherController extends Controller
         $voucher->remaining_quota = $request->remaining_quota;
         $voucher->expired_at = $request->expired_at;
         $voucher->franchise_id = auth()->user()->franchise->id;
+        if ($request->percent_value > 0) {
+            $voucher->type = 'percent';
+        } else {
+            $voucher->type = 'nominal';
+        }
         $voucher->save();
         Flashdata::success_alert("Success to update voucher");
         return redirect(route('franchise.voucher.index'));

@@ -118,3 +118,15 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script>
+    $(document).ready(function(){
+        $('#nominal_value').keyup(function(){
+            $('#percent_value').val(0);
+        });
+        $('#percent_value').keyup(function(){
+            $('#nominal_value').val(0);
+        });
+    });
+</script>
+@endpush

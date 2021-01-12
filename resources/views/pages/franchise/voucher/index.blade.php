@@ -40,7 +40,7 @@
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->code }}</td>
                                                     <td>{{ $item->nominal_value  }}</td>
-                                                    <td>{{ $item->percent_value }}</td>
+                                                    <td>{{ $item->percent_value }} %</td>
                                                     <td>{{ $item->minimum_order}}</td>
                                                     <td>{{ $item->initial_quota }}</td>
                                                     <td>{{ $item->remaining_quota }}</td>

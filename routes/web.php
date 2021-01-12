@@ -70,6 +70,7 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
         $app->post('/save-order', [App\Http\Controllers\Franchise\OrderController::class, 'store'])->name('save_order');
         $app->get('/get-products', [App\Http\Controllers\Franchise\OrderController::class, 'getProducts'])->name('get_products');
         $app->post('/check-voucher', [App\Http\Controllers\Franchise\OrderController::class, 'checkVoucher'])->name('check_voucher');
+        $app->get('/{order_id}/struk', [App\Http\Controllers\Franchise\OrderController::class, 'struk'])->name('struk');
     });
     $app->prefix('reports')->name('report.')->group(function ($app) {
         $app->get('/', [App\Http\Controllers\Franchise\ReportController::class, 'index'])->name('index');

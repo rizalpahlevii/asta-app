@@ -16,4 +16,8 @@ class Order extends Model
     {
         return $this->belongsTo(Voucher::class, 'voucher_id', 'id');
     }
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
+    }
 }

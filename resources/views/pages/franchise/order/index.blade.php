@@ -306,7 +306,7 @@
             if(order_data.use_voucher === true){
                 $('#voucher_value').val(order_data.voucher_value);
                 $('#voucher_id').val(order_data.voucher_id);
-                total -= order_data.voucher_value;
+                total = parseInt(total) -  parseInt(order_data.voucher_value);
                 $('#load-voucher-discount').text(convertToRupiah(order_data.voucher_value));
             }
             $('#order_value').val(total);
@@ -379,6 +379,10 @@
             }
         });
         $('#btn-pay').click(function(){
+            if($('#pay').val() < $('#order_value').val()){
+                alert('Pembayaran Kurang!');
+                return;
+            }
             $.ajax({
                 url : `{{ route('franchise.order.save_order') }}`,
                 method : 'post',
