@@ -9,4 +9,8 @@ class EmployeeSalary extends Model
 {
     use HasFactory;
     protected $fillable = ['employee_id', 'month', 'year', 'salary'];
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
+    }
 }

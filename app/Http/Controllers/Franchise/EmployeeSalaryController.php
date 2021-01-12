@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Franchise;
 
+use App\Helpers\Flashdata;
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
+use App\Models\EmployeeSalary;
 use Illuminate\Http\Request;
 
 class EmployeeSalaryController extends Controller
@@ -14,7 +17,10 @@ class EmployeeSalaryController extends Controller
      */
     public function index()
     {
-        //
+        $salaries = EmployeeSalary::whereHas('employee', function ($query) {
+            $query->where('franchise_id', auth()->user()->franchise->id);
+        })->get();
+        return view('pages.franchise.employee.salary.index', compact('salaries'));
     }
 
     /**
@@ -24,7 +30,8 @@ class EmployeeSalaryController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::whereFranchise(auth()->user()->franchise->id)->get();
+        return view('pages.franchise.employee.salary.create', compact('employees'));
     }
 
     /**
@@ -35,7 +42,16 @@ class EmployeeSalaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'employee_id' => 'required',
+            'month' => 'required',
+            'year' => 'required',
+            'salary' => 'required',
+        ]);
+        $salary = new EmployeeSalary();
+        $salary->create($validated);
+        Flashdata::success_alert("Success to create salary");
+        return redirect(route('franchise.employee.salary.index'));
     }
 
     /**
