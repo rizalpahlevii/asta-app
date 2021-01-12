@@ -19,7 +19,8 @@ class CreateFranchisesTable extends Migration
             $table->string('name');
             $table->string('owner_name');
             $table->string('address');
-            $table->unsignedBigInteger('user_id');
+            $table->string('phone');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

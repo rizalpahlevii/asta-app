@@ -62,9 +62,9 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <input type="submit" name="submit" value="Create User "
+                                    <input type="submit" name="submit" value="Update Supplier "
                                         class="btn btn-primary btn-sm">
-                                    <a href="{{ route('admin.user.index') }}" class="btn btn-dark btn-sm">Back</a>
+                                    <a href="{{ route('admin.supplier.index') }}" class="btn btn-dark btn-sm">Back</a>
                                 </form>
                             </div>
                         </div>

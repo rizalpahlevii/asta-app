@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Flashdata;
 use App\Http\Controllers\Controller;
+use App\Models\Franchise;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -28,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.user.create');
+        $franchises = Franchise::whereNull('user_id')->get();
+        return view('pages.admin.user.create', compact('franchises'));
     }
 
     /**
@@ -42,11 +44,22 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|min:3',
             'username' => ['required', 'min:3', Rule::unique('users', 'username')],
+            'username' => ['required', 'min:3', Rule::unique('users', 'email')],
             'password' => 'required|min:8',
             'role' => ['required', Rule::in(['admin', 'franchise'])]
         ]);
         $user = new User();
-        $user->create($validated);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->username = $request->username;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->save();
+        if ($request->role == "franchise") {
+            $franchise = Franchise::whereId($request->franchise_id)->first();
+            $franchise->user_id = $user->id;
+            $franchise->save();
+        }
         Flashdata::success_alert("Success to create user");
         return redirect(route('admin.user.index'));
     }
@@ -70,8 +83,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $franchises = Franchise::whereNull('user_id')->orWhere('user_id', $id)->get();
         $user = User::find($id);
-        return view('pages.admin.user.edit', compact('user'));
+        return view('pages.admin.user.edit', compact('user', 'franchises'));
     }
 
     /**
@@ -86,10 +100,20 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|min:3',
             'username' => ['required', 'min:3', Rule::unique('users', 'username')->ignore($id)],
+            'email' => ['required', 'min:3', Rule::unique('users', 'email')->ignore($id)],
             'role' => ['required', Rule::in(['admin', 'franchise'])]
         ]);
         $user =  User::find($id);
-        $user->update($validated);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->username = $request->username;
+        $user->role = $request->role;
+        $user->save();
+        if ($request->role == "franchise") {
+            $franchise = Franchise::whereId($request->franchise_id)->first();
+            $franchise->user_id = $user->id;
+            $franchise->save();
+        }
         Flashdata::success_alert("Success to update user");
         return redirect(route('admin.user.index'));
     }

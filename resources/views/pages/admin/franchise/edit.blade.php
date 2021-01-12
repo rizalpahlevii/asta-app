@@ -70,25 +70,19 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="type" class="col-sm-2 col-form-label">User</label>
-                                        <div class="col-sm-6">
-                                            <select name="user" id="user"
-                                                class="form-control @error('user') is-invalid @enderror">
-                                                <option disabled>--Choose option--</option>
-                                                <option value="{{ $franchise->user_id }}" selected>
-                                                    {{ $franchise->user->name }}
-                                                </option>
-                                                @foreach ($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                @endforeach
-                                            </select>
 
-                                            @error('user')
+                                    <div class="form-group row">
+                                        <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="phone"
+                                                class="form-control @error('phone') is-invalid @enderror" id="phone"
+                                                placeholder="phone" value="{{ $franchise->phone }}">
+                                            @error('phone')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
+
                                     <input type="submit" name="submit" value="Update Franchise"
                                         class="btn btn-primary btn-sm">
                                     <a href="{{ route('admin.franchise.type.index') }}"

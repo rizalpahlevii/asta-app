@@ -25,6 +25,7 @@
                                                     <th>Name</th>
                                                     <th>Owner Name</th>
                                                     <th>Address</th>
+                                                    <th>Phone</th>
                                                     <th>Income</th>
                                                     <th>Actions</th>
 
@@ -38,6 +39,7 @@
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->owner_name }}</td>
                                                     <td>{{ $item->address }}</td>
+                                                    <td>{{ $item->phone }}</td>
                                                     <td></td>
                                                     <td>
                                                         <a href="{{ route('admin.franchise.edit',$item->id) }}"

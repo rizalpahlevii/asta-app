@@ -22,6 +22,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Name</th>
+                                                    <th>Email</th>
                                                     <th>Username</th>
                                                     <th>Role</th>
                                                     <th>Actions</th>
@@ -33,6 +34,7 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->email }}</td>
                                                     <td>{{ $item->username }}</td>
                                                     <td><span
                                                             class="badge badge-{{ $item->role == "admin" ? 'danger' : 'success' }}">{{ ucfirst($item->role) }}</span>

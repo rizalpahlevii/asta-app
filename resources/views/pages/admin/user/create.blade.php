@@ -30,6 +30,17 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-6">
+                                            <input type="Email" name="email"
+                                                class="form-control @error('email') is-invalid @enderror" id="email"
+                                                placeholder="Email" value="{{ old('email') }}">
+                                            @error('username')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="username" class="col-sm-2 col-form-label">Username</label>
                                         <div class="col-sm-6">
                                             <input type="text" name="username"
@@ -66,6 +77,22 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="form-group row" id="kotak-franchise" style="display: none;">
+                                        <label for="franchise_id" class="col-sm-2 col-form-label">Franchise</label>
+                                        <div class="col-sm-6">
+                                            <select name="franchise_id" id="franchise_id"
+                                                class="form-control @error('franchise_id') is-invalid @enderror">
+                                                <option disabled selected>--Choose option--</option>
+                                                @foreach ($franchises as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+
+                                            @error('franchise_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <input type="submit" name="submit" value="Create User "
                                         class="btn btn-primary btn-sm">
                                     <a href="{{ route('admin.user.index') }}" class="btn btn-dark btn-sm">Back</a>
@@ -80,3 +107,16 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script>
+    $(document).ready(function(){
+        $('#role').change(function(){
+            if($(this).val() == 'admin'){
+                $('#kotak-franchise').css('display','none');
+            }else{
+                $('#kotak-franchise').css('display','');
+            }
+        });
+    });
+</script>
+@endpush

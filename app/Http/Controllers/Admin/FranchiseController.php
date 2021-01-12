@@ -49,14 +49,14 @@ class FranchiseController extends Controller
             'name' => 'required|min:3',
             'owner_name' => 'required|min:3',
             'address' => 'required|min:3',
-            'user' => 'required',
+            'phone' => 'required|min:6'
         ]);
         $franchise = new Franchise();
         $franchise->franchise_type_id = $request->type;
         $franchise->name = $request->name;
         $franchise->owner_name = $request->owner_name;
         $franchise->address = $request->address;
-        $franchise->user_id = $request->user;
+        $franchise->phone = $request->phone;
         if ($franchise->save()) {
             Flashdata::success_alert("Success to create Franchise");
         } else {
@@ -104,14 +104,15 @@ class FranchiseController extends Controller
             'name' => 'required|min:3',
             'owner_name' => 'required|min:3',
             'address' => 'required|min:3',
-            'user' => 'required',
+            'phone' => 'required|min:6',
+
         ]);
         $franchise = Franchise::find($id);
         $franchise->franchise_type_id = $request->type;
         $franchise->name = $request->name;
         $franchise->owner_name = $request->owner_name;
         $franchise->address = $request->address;
-        $franchise->user_id = $request->user;
+        $franchise->phone = $request->phone;
         if ($franchise->save()) {
             Flashdata::success_alert("Success to update Franchise");
         } else {
