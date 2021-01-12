@@ -46,6 +46,7 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
         $app->get('/{id}/edit', [App\Http\Controllers\Franchise\SupplierController::class, 'edit'])->name('edit');
         $app->put('/{id}', [App\Http\Controllers\Franchise\SupplierController::class, 'update'])->name('update');
         $app->get('/{id}/delete', [App\Http\Controllers\Franchise\SupplierController::class, 'destroy'])->name('destroy');
+        $app->get('/download-pdf', [App\Http\Controllers\Franchise\SupplierController::class, 'downloadPdf'])->name('download_pdf');
     });
     $app->prefix('materials')->name('material.')->group(function ($app) {
         $app->get('/', [App\Http\Controllers\Franchise\RawMaterialController::class, 'index'])->name('index');

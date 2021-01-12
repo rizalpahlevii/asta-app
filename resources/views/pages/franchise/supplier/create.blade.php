@@ -81,6 +81,14 @@
 
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{{ route('franchise.supplier.download_pdf') }}" target="_blank" class="text-right float-right">
+                    Klik Disini Untuk Melihat Suppliers
+                    Berdasarkan Alamat Terdekat
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

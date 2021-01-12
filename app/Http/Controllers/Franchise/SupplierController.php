@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FranchiseSupplier;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use PDF;
 
 class SupplierController extends Controller
 {
@@ -111,5 +112,12 @@ class SupplierController extends Controller
         $supplier->delete();
         Flashdata::success_alert("Success to delete supplier");
         return redirect(route('franchise.supplier.index'));
+    }
+    public function downloadPdf()
+    {
+        $suppliers = Supplier::get();
+        view()->share('suppliers', $suppliers);
+        $pdf = PDF::loadView('pages.franchise.supplier.pdf', $suppliers);
+        return $pdf->download('supplier_data.pdf');
     }
 }
