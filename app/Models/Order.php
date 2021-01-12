@@ -20,4 +20,8 @@ class Order extends Model
     {
         return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
+    public function scopeWhereFranchise($query, $franchise_id)
+    {
+        return $query->where('franchise_id', $franchise_id);
+    }
 }
