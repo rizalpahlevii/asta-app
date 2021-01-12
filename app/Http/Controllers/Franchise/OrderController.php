@@ -93,7 +93,7 @@ class OrderController extends Controller
     {
         foreach ($materials_id as $row) {
             $material = RawMaterial::find($row);
-            $material->amount -= ($quantity * 1);
+            $material->amount -= ($quantity * $material->deductions_per_transaction);
             $material->save();
         }
     }

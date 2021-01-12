@@ -97,6 +97,19 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="deductions_per_transaction"
+                                            class="col-sm-2 col-form-label">Deductions per transaction</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="deductions_per_transaction"
+                                                class="form-control @error('deductions_per_transaction') is-invalid @enderror"
+                                                id="deductions_per_transaction" placeholder="deductions_per_transaction"
+                                                value="{{ old('deductions_per_transaction') }}">
+                                            @error('deductions_per_transaction')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                     <input type="submit" name="submit" value="Create Supplier "
                                         class="btn btn-primary btn-sm">

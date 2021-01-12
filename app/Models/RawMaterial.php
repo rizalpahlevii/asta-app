@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RawMaterial extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'supplier_id', 'franchise_id', 'amount', 'unit', 'information', 'expired'];
+    protected $fillable = ['name', 'supplier_id', 'franchise_id', 'amount', 'unit', 'information', 'expired', 'deductions_per_transaction'];
     public function scopeWhereFranchise($query, $franchise_id)
     {
         return $query->where('franchise_id', $franchise_id);

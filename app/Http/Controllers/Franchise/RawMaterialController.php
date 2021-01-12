@@ -49,6 +49,7 @@ class RawMaterialController extends Controller
             'unit' => 'required',
             'information' => 'required',
             'franchise_id' => 'required',
+            'deductions_per_transaction' => 'required'
         ]);
         $material = new RawMaterial();
         $material->create($validated);
@@ -98,6 +99,7 @@ class RawMaterialController extends Controller
             'unit' => 'required',
             'information' => 'required',
             'franchise_id' => 'required',
+            'deductions_per_transaction' => 'required'
         ]);
         $material =  RawMaterial::find($id);
         $material->update($validated);
