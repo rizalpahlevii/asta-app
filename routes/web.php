@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(function ($app) {
+Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franchise')->group(function ($app) {
     $app->get('/', [App\Http\Controllers\Franchise\DashboardController::class, 'index'])->name('dashboard');
     $app->get('/dashboard', [App\Http\Controllers\Franchise\DashboardController::class, 'index'])->name('dashboard');
     $app->get('/dashboard/get-data', [App\Http\Controllers\Franchise\DashboardController::class, 'getData'])->name('dashboard.get_data');
@@ -106,7 +106,7 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
     });
 });
 
-Route::name('admin.')->middleware('auth')->prefix('backoffice')->group(function ($app) {
+Route::name('admin.')->middleware(['auth', 'role:admin'])->prefix('backoffice')->group(function ($app) {
     $app->get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     $app->get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     $app->prefix('franchises')->name('franchise.')->group(function ($app) {
