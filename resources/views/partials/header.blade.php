@@ -2,8 +2,8 @@
     <a id="navbar_toggle_btn" class="navbar-toggle-btn nav-link-hover" href="javascript:void(0);"><i
             class="ion ion-ios-menu"></i></a>
     <a class="navbar-brand" href="">
-        <img class="brand-img d-inline-block mr-5" src="{{ asset('admin_template') }}/dist/img/logo.png"
-            alt="brand" />Deepor
+        <img class="brand-img d-inline-block mr-5" style="width: 120px;"
+            src="{{ asset('admin_template') }}/asta-app.png" alt="brand" />
     </a>
     <ul class="navbar-nav hk-navbar-content">
         <li class="nav-item">

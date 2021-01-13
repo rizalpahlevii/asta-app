@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Franchise;
 use App\Models\Order;
 use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -15,6 +16,7 @@ class DashboardController extends Controller
         $franchise = Franchise::get()->count();
         $supplier = Supplier::get()->count();
         $income = Order::get()->sum('total_pay');
-        return view('pages.admin.dashboard', compact('franchise', 'supplier', 'income'));
+        $user = User::get()->count();
+        return view('pages.admin.dashboard', compact('franchise', 'supplier', 'income', 'user'));
     }
 }

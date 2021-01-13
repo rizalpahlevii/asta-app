@@ -1,54 +1,118 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+<!DOCTYPE html>
+<!--
+Template Name: Deepor - Responsive Bootstrap 4 Admin Dashboard Template
+Author: Hencework
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+License: You must have a valid license purchased only from templatemonster to legally use the template for your project.
+-->
+<html lang="en">
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Deepor I Login</title>
+    <meta name="description" content="A responsive bootstrap 4 admin dashboard template by hencework" />
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="username" :value="__('Username')" />
+    <!-- Toggles CSS -->
+    <link href="{{ asset('admin_template') }}/vendors/jquery-toggles/css/toggles.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('admin_template') }}/vendors/jquery-toggles/css/themes/toggles-light.css" rel="stylesheet"
+        type="text/css">
 
-                <x-input id="username" class="block mt-1 w-full" type="text" name="username" required autofocus />
+    <!-- Custom CSS -->
+    <link href="{{ asset('admin_template') }}/dist/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+
+    <!-- HK Wrapper -->
+    <div class="hk-wrapper">
+
+        <!-- Main Content -->
+        <div class="hk-pg-wrapper hk-auth-wrapper">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12 pa-0">
+                        <div class="auth-form-wrap pt-xl-0 pt-70">
+                            <div class="auth-form w-xl-30 w-lg-55 w-sm-75 w-100">
+                                <a class="d-flex auth-brand align-items-center justify-content-center  mb-20" href="#">
+                                    <img class="brand-img d-inline-block mr-5"
+                                        src="{{ asset('admin_template') }}/asta-app.png" alt="brand" />
+                                </a>
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                    <p class="text-center mb-30">Sign in to your account </p>
+                                    <!-- Session Status -->
+
+                                    <!-- Validation Errors -->
+                                    @if ($errors->any())
+                                    <ul class="alert alert-danger">
+                                        @foreach ($errors->all() as $item)
+                                        <li>{{ $item }}</li>
+                                        @endforeach
+                                    </ul>
+                                    @endif
+                                    @if (session('status'))
+                                    <div class="alert alert-inv alert-inv-danger alert-wth-icon" role="alert">
+                                        <span class="alert-icon-wrap">
+                                            <i class="zmdi zmdi-block"></i>
+                                        </span>
+                                        {{ session('status') }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    @endif
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Username" type="text" name="username"
+                                            id="username">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Password" type="password"
+                                                name="password" id="password">
+
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-warning btn-block" type="submit">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        <!-- /Main Content -->
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+    </div>
+    <!-- /HK Wrapper -->
 
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                    autocomplete="current-password" />
-            </div>
+    <!-- JavaScript -->
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <input id="remember_me" type="checkbox" class="form-checkbox" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+    <!-- jQuery -->
+    <script src="{{ asset('admin_template') }}/vendors/jquery/dist/jquery.min.js"></script>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-                @endif
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ asset('admin_template') }}/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="{{ asset('admin_template') }}/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
-                <x-button class="ml-3">
-                    {{ __('Login') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+    <!-- Slimscroll JavaScript -->
+    <script src="{{ asset('admin_template') }}/dist/js/jquery.slimscroll.js"></script>
+
+    <!-- Fancy Dropdown JS -->
+    <script src="{{ asset('admin_template') }}/dist/js/dropdown-bootstrap-extended.js"></script>
+
+    <!-- FeatherIcons JavaScript -->
+    <script src="{{ asset('admin_template') }}/dist/js/feather.min.js"></script>
+
+    <!-- Init JavaScript -->
+    <script src="{{ asset('admin_template') }}/dist/js/init.js"></script>
+</body>
+
+</html>

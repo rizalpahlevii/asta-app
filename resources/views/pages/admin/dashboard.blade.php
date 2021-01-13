@@ -63,6 +63,26 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-5">
+                            <div>
+                                <span class="d-block font-15 text-dark font-weight-500">
+                                    User
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="text-center">
+                            <span class="d-block display-4 text-dark mb-5">
+                                <span class="counter-anim">{{ $user }}</span>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
