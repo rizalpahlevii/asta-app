@@ -21,6 +21,7 @@ Route::name('franchise.')->middleware('auth')->prefix('franchise')->group(functi
     $app->get('/', [App\Http\Controllers\Franchise\DashboardController::class, 'index'])->name('dashboard');
     $app->get('/dashboard', [App\Http\Controllers\Franchise\DashboardController::class, 'index'])->name('dashboard');
     $app->get('/dashboard/get-data', [App\Http\Controllers\Franchise\DashboardController::class, 'getData'])->name('dashboard.get_data');
+    $app->get('/dashboard/get-chart-data', [App\Http\Controllers\Franchise\DashboardController::class, 'getChartData'])->name('dashboard.get_chart_data');
 
     $app->prefix('orders')->name('order.')->group(function ($app) {
     });

@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
             $table->integer('normal_price');
             $table->integer('discount');
             $table->integer('voucher_discount');

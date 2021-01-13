@@ -34,6 +34,7 @@ class OrderController extends Controller
             $discount += $row['subtotal_discount'];
         }
         $order = new Order();
+        $order->date = Carbon::now()->format('Y-m-d');
         $order->pay = $request->pay;
         $order->normal_price = $normal_price;
         $order->discount = $discount;
