@@ -14,7 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->user()) {
+        if (auth()->user()->franchise) {
+            return redirect()->route('franchise.dashboard');
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
+    } else {
+        return redirect()->route('login');
+    }
 });
 
 Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franchise')->group(function ($app) {
