@@ -4,7 +4,8 @@
 @section('content')
 <div class="hk-pg-header">
     <h4 class="hk-pg-title">@yield('page')</h4>
-    <a href="{{ route('admin.franchise.create') }}" class="btn btn-primary btn-rounded btn-sm">Create Franchise
+    <a href="{{ route('admin.franchise.create') }}" class="btn btn-primary btn-rounded btn-sm float-right">Create
+        Franchise
     </a>
 </div>
 <div class="row">
@@ -26,7 +27,6 @@
                                                     <th>Owner Name</th>
                                                     <th>Address</th>
                                                     <th>Phone</th>
-                                                    <th>Income</th>
                                                     <th>Actions</th>
 
                                                 </tr>
@@ -40,8 +40,9 @@
                                                     <td>{{ $item->owner_name }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td>{{ $item->phone }}</td>
-                                                    <td></td>
                                                     <td>
+                                                        <a href="{{ route('admin.franchise.income',$item->id) }}"
+                                                            class="btn btn-info btn-sm">Show Income</a>
                                                         <a href="{{ route('admin.franchise.edit',$item->id) }}"
                                                             class="btn btn-warning btn-sm">Edit</a>
                                                         <a href="{{ route('admin.franchise.destroy',$item->id) }}"

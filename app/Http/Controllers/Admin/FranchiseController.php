@@ -8,8 +8,9 @@ use App\Models\Franchise;
 use App\Models\FranchiseType;
 use App\Models\User;
 use Illuminate\Http\Request;
-
-use function GuzzleHttp\Promise\all;
+use App\Models\Order;
+use Illuminate\Support\Facades\DB;
+use PDF;
 
 class FranchiseController extends Controller
 {
@@ -136,5 +137,32 @@ class FranchiseController extends Controller
             Flashdata::success_alert("Cannot to delete Franchise");
         }
         return redirect(route('admin.franchise.index'));
+    }
+
+    public function income($id)
+    {
+        $year = Order::select(DB::raw('YEAR(created_at) as year'))->distinct()->get();
+        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income');
+        if (request()->get('year')) {
+            $data = $data->whereYear('order_date', request()->get('year'));
+        }
+        $data = $data->groupBy('year', 'month')
+            ->orderBy('month', 'desc')->get();
+        $franchise = Franchise::find($id);
+        return view('pages.admin.franchise.income', compact('data', 'franchise', 'year'));
+    }
+    public function pdf($id)
+    {
+        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income');
+        if (request()->get('year')) {
+            $data = $data->whereYear('order_date', request()->get('year'));
+        }
+        $data = $data->groupBy('year', 'month')
+            ->orderBy('month', 'desc')->get();
+        $franchise = Franchise::find($id);
+        view()->share('franchise', $franchise);
+        view()->share('data', $data);
+        $pdf = PDF::loadView('pages.admin.franchise.pdf', compact('franchise', 'data'));
+        return $pdf->download($franchise->name . '-income.pdf');
     }
 }

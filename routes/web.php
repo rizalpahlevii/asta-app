@@ -132,6 +132,8 @@ Route::name('admin.')->middleware(['auth', 'role:admin'])->prefix('backoffice')-
         $app->get('/create', [App\Http\Controllers\Admin\FranchiseController::class, 'create'])->name('create');
         $app->post('/', [App\Http\Controllers\Admin\FranchiseController::class, 'store'])->name('store');
         $app->get('/{id}/edit', [App\Http\Controllers\Admin\FranchiseController::class, 'edit'])->name('edit');
+        $app->get('/{id}/income', [App\Http\Controllers\Admin\FranchiseController::class, 'income'])->name('income');
+        $app->get('/{id}/income/pdf', [App\Http\Controllers\Admin\FranchiseController::class, 'pdf'])->name('pdf');
         $app->put('/{id}', [App\Http\Controllers\Admin\FranchiseController::class, 'update'])->name('update');
         $app->get('/{id}/delete', [App\Http\Controllers\Admin\FranchiseController::class, 'destroy'])->name('destroy');
     });

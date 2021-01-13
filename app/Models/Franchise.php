@@ -20,4 +20,8 @@ class Franchise extends Model
     {
         return $this->hasMany(Employee::class, 'franchise_id', 'id');
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'franchise_id', 'id');
+    }
 }
