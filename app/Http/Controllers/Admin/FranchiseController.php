@@ -135,7 +135,6 @@ class FranchiseController extends Controller
         $franchise->owner_name = $request->owner_name;
         $franchise->address = $request->address;
         $franchise->phone = $request->phone;
-
         $user =  User::find($franchise->user_id);
         $user->name = $request->name;
         $user->email = $request->email;
