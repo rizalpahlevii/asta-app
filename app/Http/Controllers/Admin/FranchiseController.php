@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use PDF;
 
 class FranchiseController extends Controller
@@ -47,17 +48,30 @@ class FranchiseController extends Controller
     {
         $request->validate([
             'type' => 'required',
-            'name' => 'required|min:3',
+            'franchise_name' => 'required|min:3',
             'owner_name' => 'required|min:3',
             'address' => 'required|min:3',
-            'phone' => 'required|min:6'
+            'phone' => 'required|min:6',
+            'name' => 'required|min:3',
+            'username' => ['required', 'min:3', Rule::unique('users', 'username')],
+            'email' => ['required', 'min:3', Rule::unique('users', 'email')],
+            'password' => 'required|min:8',
         ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->username = $request->username;
+        $user->password = bcrypt($request->password);
+        $user->role = 'franchise';
+        $user->save();
+
         $franchise = new Franchise();
         $franchise->franchise_type_id = $request->type;
-        $franchise->name = $request->name;
+        $franchise->name = $request->franchise_name;
         $franchise->owner_name = $request->owner_name;
         $franchise->address = $request->address;
         $franchise->phone = $request->phone;
+        $franchise->user_id = $user->id;
         if ($franchise->save()) {
             Flashdata::success_alert("Success to create Franchise");
         } else {
@@ -88,7 +102,8 @@ class FranchiseController extends Controller
         $users = User::where('role', 'franchise')->doesntHave('franchise')->get();
         $types = FranchiseType::all();
         $franchise = Franchise::with('user')->find($id);
-        return view('pages.admin.franchise.edit', compact('users', 'types', 'franchise'));
+        $user = User::find($franchise->user_id);
+        return view('pages.admin.franchise.edit', compact('users', 'types', 'franchise', 'user'));
     }
 
     /**
@@ -100,20 +115,32 @@ class FranchiseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $franchise = Franchise::find($id);
+        $validator = [
             'type' => 'required',
-            'name' => 'required|min:3',
+            'franchise_name' => 'required|min:3',
             'owner_name' => 'required|min:3',
             'address' => 'required|min:3',
             'phone' => 'required|min:6',
-
-        ]);
-        $franchise = Franchise::find($id);
+            'name' => 'required|min:3',
+            'username' => ['required', 'min:3', Rule::unique('users', 'username')->ignore($franchise->user_id)],
+            'email' => ['required', 'min:3', Rule::unique('users', 'email')->ignore($franchise->user_id)],
+        ];
+        if ($request->password) {
+            $validator['password'] = 'required|min:8';
+        }
+        $request->validate($validator);
         $franchise->franchise_type_id = $request->type;
-        $franchise->name = $request->name;
+        $franchise->name = $request->franchise_name;
         $franchise->owner_name = $request->owner_name;
         $franchise->address = $request->address;
         $franchise->phone = $request->phone;
+
+        $user =  User::find($franchise->user_id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->username = $request->username;
+        $user->save();
         if ($franchise->save()) {
             Flashdata::success_alert("Success to update Franchise");
         } else {
@@ -142,7 +169,7 @@ class FranchiseController extends Controller
     public function income($id)
     {
         $year = Order::select(DB::raw('YEAR(created_at) as year'))->distinct()->get();
-        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income');
+        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income')->whereFranchise('franchise_id', $id);
         if (request()->get('year')) {
             $data = $data->whereYear('order_date', request()->get('year'));
         }
@@ -153,7 +180,7 @@ class FranchiseController extends Controller
     }
     public function pdf($id)
     {
-        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income');
+        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income')->whereFranchise('franchise_id', $id);
         if (request()->get('year')) {
             $data = $data->whereYear('order_date', request()->get('year'));
         }

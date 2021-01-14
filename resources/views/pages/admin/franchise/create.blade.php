@@ -34,12 +34,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                                        <label for="franchise_name" class="col-sm-2 col-form-label">Franchise
+                                            Name</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="name"
-                                                class="form-control @error('name') is-invalid @enderror" id="name"
-                                                placeholder="Franchise  Name" value="{{ old('name') }}">
-                                            @error('name')
+                                            <input type="text" name="franchise_name"
+                                                class="form-control @error('franchise_name') is-invalid @enderror"
+                                                id="franchise_name" placeholder="Franchise  Name"
+                                                value="{{ old('franchise_name') }}">
+                                            @error('franchise_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -57,7 +59,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="address" class="col-sm-2 col-form-label">Address</label>
+                                        <label for="address" class="col-sm-2 col-form-label">Franchise Address</label>
                                         <div class="col-sm-6">
                                             <input type="text" name="address"
                                                 class="form-control @error('address') is-invalid @enderror" id="address"
@@ -69,12 +71,57 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                                        <label for="phone" class="col-sm-2 col-form-label">Franchise Phone</label>
                                         <div class="col-sm-6">
                                             <input type="text" name="phone"
                                                 class="form-control @error('phone') is-invalid @enderror" id="phone"
                                                 placeholder="phone" value="{{ old('phone') }}">
                                             @error('phone')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="name" class="col-sm-2 col-form-label">Name of User</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="name"
+                                                class="form-control @error('name') is-invalid @enderror" id="name"
+                                                placeholder=" Name" value="{{ old('name') }}">
+                                            @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="email" class="col-sm-2 col-form-label">User Email</label>
+                                        <div class="col-sm-6">
+                                            <input type="Email" name="email"
+                                                class="form-control @error('email') is-invalid @enderror" id="email"
+                                                placeholder="Email" value="{{ old('email') }}">
+                                            @error('username')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="username" class="col-sm-2 col-form-label">Username</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="username"
+                                                class="form-control @error('username') is-invalid @enderror"
+                                                id="username" placeholder="User Name" value="{{ old('username') }}">
+                                            @error('username')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="password" class="col-sm-2 col-form-label">User Password</label>
+                                        <div class="col-sm-6">
+                                            <input type="password" name="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                id="password" placeholder="Password">
+                                            @error('password')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>

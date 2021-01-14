@@ -52,42 +52,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="type" class="col-sm-2 col-form-label">Role</label>
-                                        <div class="col-sm-6">
-                                            <select name="role" id="role"
-                                                class="form-control @error('role') is-invalid @enderror">
-                                                <option disabled selected>--Choose option--</option>
-                                                <option value="admin" {{ $user->role == "admin" ? 'selected':'' }}>Admin
-                                                </option>
-                                                <option value="franchise"
-                                                    {{ $user->role == "franchise" ? 'selected':'' }}>
-                                                    Franchise</option>
-                                            </select>
 
-                                            @error('role')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-group row" id="kotak-franchise" style="display: none;">
-                                        <label for="franchise_id" class="col-sm-2 col-form-label">Franchise</label>
-                                        <div class="col-sm-6">
-                                            <select name="franchise_id" id="franchise_id"
-                                                class="form-control @error('franchise_id') is-invalid @enderror">
-                                                <option disabled selected>--Choose option--</option>
-                                                @foreach ($franchises as $item)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $item->user_id == $user->id ? 'selected' : '' }}>
-                                                    {{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-
-                                            @error('franchise_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
                                     <input type="submit" name="submit" value="Save User "
                                         class="btn btn-primary btn-sm">
                                     <a href="{{ route('admin.user.index') }}" class="btn btn-dark btn-sm">Back</a>

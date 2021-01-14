@@ -44,7 +44,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|min:3',
             'username' => ['required', 'min:3', Rule::unique('users', 'username')],
-            'username' => ['required', 'min:3', Rule::unique('users', 'email')],
+            'email' => ['required', 'min:3', Rule::unique('users', 'email')],
             'password' => 'required|min:8',
             'role' => ['required', Rule::in(['admin', 'franchise'])]
         ]);
@@ -53,13 +53,9 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->username = $request->username;
         $user->password = bcrypt($request->password);
-        $user->role = $request->role;
+        $user->role = 'admin';
         $user->save();
-        if ($request->role == "franchise") {
-            $franchise = Franchise::whereId($request->franchise_id)->first();
-            $franchise->user_id = $user->id;
-            $franchise->save();
-        }
+
         Flashdata::success_alert("Success to create user");
         return redirect(route('admin.user.index'));
     }
@@ -101,19 +97,13 @@ class UserController extends Controller
             'name' => 'required|min:3',
             'username' => ['required', 'min:3', Rule::unique('users', 'username')->ignore($id)],
             'email' => ['required', 'min:3', Rule::unique('users', 'email')->ignore($id)],
-            'role' => ['required', Rule::in(['admin', 'franchise'])]
         ]);
         $user =  User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
-        $user->role = $request->role;
         $user->save();
-        if ($request->role == "franchise") {
-            $franchise = Franchise::whereId($request->franchise_id)->first();
-            $franchise->user_id = $user->id;
-            $franchise->save();
-        }
+
         Flashdata::success_alert("Success to update user");
         return redirect(route('admin.user.index'));
     }
