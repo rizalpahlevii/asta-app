@@ -386,7 +386,9 @@
             }
         });
         $('#btn-pay').click(function(){
-            if($('#pay').val() <= $('#order_value').val()){
+            pay = $('#pay').val();
+            order_value = $('#order_value').val();
+            if(pay < order_value){
                 alert('Pembayaran Kurang!');
                 return;
             }
