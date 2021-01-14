@@ -169,7 +169,7 @@ class FranchiseController extends Controller
     public function income($id)
     {
         $year = Order::select(DB::raw('YEAR(created_at) as year'))->distinct()->get();
-        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income')->whereFranchise('franchise_id', $id);
+        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income')->whereFranchise($id);
         if (request()->get('year')) {
             $data = $data->whereYear('order_date', request()->get('year'));
         }
@@ -180,7 +180,7 @@ class FranchiseController extends Controller
     }
     public function pdf($id)
     {
-        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income')->whereFranchise('franchise_id', $id);
+        $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income')->whereFranchise($id);
         if (request()->get('year')) {
             $data = $data->whereYear('order_date', request()->get('year'));
         }
