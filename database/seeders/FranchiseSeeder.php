@@ -20,6 +20,7 @@ class FranchiseSeeder extends Seeder
                 'name' => 'INDOMARET KELET',
                 'owner_name' => 'Pahlevi',
                 'address' => 'KELET KELING',
+                'phone' => '0129381237',
                 'user_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now()

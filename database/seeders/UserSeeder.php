@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Muhammad Rizal',
                 'username' => 'rizalpahlevi',
+                'email' => 'rizalpahlevi@gmail.com',
                 'password' => bcrypt('123123123'),
                 'role' => 'admin',
                 'created_at' => now(),
@@ -26,6 +27,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Pahlevi',
                 'username' => 'pahlevi',
+                'email' => 'pahlevi@gmail.com',
                 'password' => bcrypt('123123123'),
                 'role' => 'franchise',
                 'created_at' => now(),
