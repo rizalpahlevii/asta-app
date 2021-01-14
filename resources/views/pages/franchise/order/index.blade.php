@@ -130,6 +130,13 @@
 <!-- Toastr CSS -->
 <link href="{{ asset('admin_template') }}/vendors/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet"
     type="text/css">
+<style>
+    .myImg {
+        width: 300px;
+        height: 150px;
+        object-fit: cover
+    }
+</style>
 
 @endpush
 @push('script')
@@ -170,7 +177,7 @@
                             <div class="card-body">
 
                                 <div class="justify-content">
-                                    <img src="${image}" alt="" class="img-fluid">
+                                    <img src="${image}" alt="" class="img-fluid myImg">
                                 </div>
                                 <div class="d-flex justify-content-between mb-5">
                                     <div>
