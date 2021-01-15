@@ -130,6 +130,12 @@
                 <span class="nav-link-text">Report</span>
             </a>
         </li>
+        <li class="nav-item {{ set_active('franchise.report.transaction') }}">
+            <a class="nav-link" href="{{ route('franchise.report.transaction') }}">
+                <i class="ion ion-ios-apps"></i>
+                <span class="nav-link-text">Transaction Report</span>
+            </a>
+        </li>
         <li class="nav-item {{ set_active('franchise.setting.index') }}">
             <a class="nav-link" href="{{ route('franchise.setting.index') }}">
                 <i class="ion ion-ios-settings"></i>

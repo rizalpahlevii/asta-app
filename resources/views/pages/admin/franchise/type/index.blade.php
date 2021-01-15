@@ -35,7 +35,8 @@
                                                         <a href="{{ route('admin.franchise.type.edit',$item->id) }}"
                                                             class="btn btn-warning btn-sm">Edit</a>
                                                         <a href="{{ route('admin.franchise.type.destroy',$item->id) }}"
-                                                            class="btn btn-danger btn-sm">Delete</a>
+                                                            class="btn btn-danger btn-sm"
+                                                            onclick="return confirm('Yakin ingin menghapus type franchise ? Menghapus type franchise juga akan menghapus franchise dengan tipe {{ $item->name }}')">Delete</a>
                                                     </td>
 
                                                 </tr>

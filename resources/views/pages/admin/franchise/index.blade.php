@@ -33,6 +33,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($franchises as $item)
+                                                @if ($item->franchiseType)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->franchiseType->name }}</td>
@@ -50,6 +51,7 @@
                                                     </td>
 
                                                 </tr>
+                                                @endif
                                                 @endforeach
 
                                             </tbody>

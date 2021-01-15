@@ -13,12 +13,16 @@ class RawMaterial extends Model
     {
         return $query->where('franchise_id', $franchise_id);
     }
+    public function productMaterials()
+    {
+        return $this->hasMany(ProductMaterial::class, 'raw_material_id', 'id');
+    }
     public function franchise()
     {
         return $this->belongsTo(Franchise::class, 'franchise_id', 'id');
     }
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
+        return $this->belongsTo(Supplier::class, 'supplier_id', 'id')->withTrashed();
     }
 }

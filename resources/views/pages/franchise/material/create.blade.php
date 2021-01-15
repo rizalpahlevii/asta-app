@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('page','Create Supplier')
+@section('page','Create Material')
 @section('content')
 <div class="hk-pg-header">
     <h4 class="hk-pg-title">@yield('page')</h4>

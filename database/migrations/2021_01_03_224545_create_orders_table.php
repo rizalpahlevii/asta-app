@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->date('order_date');
             $table->integer('normal_price');
             $table->integer('discount');
-            $table->integer('voucher_discount');
+            $table->integer('voucher_discount')->default(0);
             $table->integer('total_pay');
             $table->integer('pay');
             $table->unsignedBigInteger('voucher_id')->nullable();

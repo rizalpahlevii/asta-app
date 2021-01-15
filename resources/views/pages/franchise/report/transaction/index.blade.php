@@ -74,44 +74,40 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Product Name</th>
-                                                <th>Amount</th>
-                                                <th>Price</th>
+                                                <th>Order Date</th>
+                                                <th>Normal Price</th>
+                                                <th>Discount</th>
+                                                <th>Voucher Discount</th>
+                                                <th>Total Pay</th>
+                                                <th>Employee</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @php
                                             $total=0;
                                             @endphp
-                                            @foreach ($products as $item)
+                                            @foreach ($orders as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->name }}</td>
-                                                <td>
-                                                    @php
-                                                    $amount = 0;
-                                                    $price = 0;
-                                                    @endphp
-                                                    @foreach ($item->orderDetails as $row)
-                                                    @php
-                                                    $amount += $row->quantity;
-                                                    $price += $row->subtotal;
-                                                    @endphp
-                                                    @endforeach
-                                                    {{ $amount }}
-                                                </td>
-                                                <td>@currency($price)</td>
+                                                <td>{{ $item->order_date }}</td>
+                                                <td>@currency($item->normal_price)</td>
+                                                <td>@currency($item->discount )</td>
+                                                <td>@currency($item->voucher_discount )</td>
+                                                <td>@currency($item->total_pay )</td>
+                                                <td>{{  $item->employee->name}}</td>
                                             </tr>
                                             @php
-                                            $total += $price
+                                            $total +=$item->total_pay
                                             @endphp
                                             @endforeach
                                         </tbody>
                                         <thead>
-                                            <td colspan="3">
+                                            <td colspan="4">
                                                 <center><b>Total</b></center>
                                             </td>
-                                            <td colspan="2"><b>@currency($total)</b></td>
+                                            <td colspan="3"><b>
+                                                    <center>@currency($total)</center>
+                                                </b></td>
                                         </thead>
                                     </table>
 
@@ -166,7 +162,7 @@
             month = $('#month').val();
             year = $('#year').val();
             limit = $('#limit').val();
-            let url = `{{ url('franchise/reports/pdf?month=${month}&year=${year}&limit=${limit}') }}`;
+            let url = `{{ url('franchise/reports/transactions/pdf?month=${month}&year=${year}&limit=${limit}') }}`;
             const parseResult = new DOMParser().parseFromString(url, "text/html");
             const parsedUrl = parseResult.documentElement.textContent;
             window.open(parsedUrl,'_blank');
