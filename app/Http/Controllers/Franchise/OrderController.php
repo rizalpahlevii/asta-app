@@ -72,7 +72,7 @@ class OrderController extends Controller
         if ($request['order_data']) {
             self::updateVoucher($request['order_data']['voucher_id']);
         }
-        return response()->json(['status' => true, 'message' => 'Success to order']);
+        return response()->json(['status' => true, 'message' => 'Success to order', 'data' => $order]);
     }
     public function getProducts()
     {
@@ -151,6 +151,6 @@ class OrderController extends Controller
         $order = Order::with('orderDetails.product', 'employee')->find($order_id);
         view()->share('order', $order);
         $pdf = PDF::loadView('pages.franchise.order.pdf', $order);
-        return $pdf->download('struk.pdf');
+        return $pdf->download('struk' . $order->id . '-' . $order->order_date . '.pdf');
     }
 }

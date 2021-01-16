@@ -407,7 +407,12 @@
                         alert(response.message);
                         localStorage.removeItem('cart');
                         localStorage.removeItem('order_data');
+                        url = `{{ route('franchise.order.struk',':id') }}`;
+                        url = url.replace(':id',response.data.id);
+                        window.open(url);
                         location.href = `{{ route('franchise.order.index') }}`;
+                    }else{
+                        alert('Error transaction');
                     }
                 }
             });
