@@ -53,6 +53,25 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group row">
+                                        <label for="password" class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-6">
+                                            <input type="password" name="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                id="password" placeholder="password" value="">
+                                            @error('username')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p>Kosongkan form password jika tidak ingin
+                                                mengganti
+                                                password</p>
+                                        </div>
+                                    </div>
                                     <input type="submit" name="submit" value="Save User "
                                         class="btn btn-primary btn-sm">
                                     <a href="{{ route('admin.user.index') }}" class="btn btn-dark btn-sm">Back</a>

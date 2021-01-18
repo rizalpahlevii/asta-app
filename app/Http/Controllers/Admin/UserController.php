@@ -93,15 +93,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
+        $rules = [
             'name' => 'required|min:3',
             'username' => ['required', 'min:3', Rule::unique('users', 'username')->ignore($id)],
             'email' => ['required', 'min:3', Rule::unique('users', 'email')->ignore($id)],
-        ]);
+        ];
+        if ($request->password) {
+            $rules['password'] = 'required|min:5';
+        }
+        $request->validate($rules);
         $user =  User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->username = $request->username;
+        if ($request->password) {
+            $user->password = $request->password;
+        }
         $user->save();
 
         Flashdata::success_alert("Success to update user");
