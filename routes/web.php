@@ -13,17 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (auth()->user()) {
-        if (auth()->user()->franchise) {
-            return redirect()->route('franchise.dashboard');
-        } else {
-            return redirect()->route('admin.dashboard');
-        }
-    } else {
-        return redirect()->route('login');
-    }
-});
+Route::get('/', [App\Http\Controllers\LandingController::class, 'index'])->name('index');
+Route::get('/about', [App\Http\Controllers\LandingController::class, 'about'])->name('about');
 
 Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franchise')->group(function ($app) {
     $app->get('/', [App\Http\Controllers\Franchise\DashboardController::class, 'index'])->name('dashboard');
