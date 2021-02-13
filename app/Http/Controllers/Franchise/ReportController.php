@@ -61,4 +61,20 @@ class ReportController extends Controller
         $orders = $orders->get();
         return view('pages.franchise.report.transaction.index', compact('orders', 'year'));
     }
+    public function transactionPdf()
+    {
+
+        $orders = Order::whereFranchise(auth()->user()->franchise->id);
+        if (request()->get('month') && request()->get('year')) {
+            $orders = $orders->whereMonth('order_date', request()->get('month'));
+            $orders = $orders->whereYear('order_date', request()->get('year'));
+        }
+        if (request()->get('limit')) {
+            $orders = $orders->limit(request()->get('limit'));
+        }
+        $orders = $orders->get();
+        view()->share('orders', $orders);
+        $pdf = PDF::loadView('pages.franchise.report.transaction.pdf', $orders);
+        return $pdf->download('report.pdf');
+    }
 }
