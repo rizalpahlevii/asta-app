@@ -120,41 +120,7 @@
                             <!-- end of button -->
                         </div>
                         <!-- end of content -->
-                        <div
-                            class="features features--v2 color--white d-flex justify-content-center justify-content-lg-start flex-wrap remove-space--x mt-4 mt-lg-8 reveal">
-                            <div class="single-item m-1 m-sm-4">
-                                <span class="h2-font">
-                                    <i class="icon icon-key"></i>
-                                </span>
-                                <p class="h4-font">Akses<br>Mudah</p>
-                            </div>
-                            <!-- end of single item -->
 
-                            <div class="single-item m-1 m-sm-4">
-                                <span class="h2-font">
-                                    <i class="icon icon-metrics"></i>
-                                </span>
-                                <p class="h4-font">Kecepatan<br>Aplikasi</p>
-                            </div>
-                            <!-- end of single item -->
-
-                            <div class="single-item m-1 m-sm-4">
-                                <span class="h2-font">
-                                    <i class="icon icon-handshake"></i>
-                                </span>
-                                <p class="h4-font">Kemudahan<br>Bekerjasama</p>
-                            </div>
-                            <!-- end of single item -->
-
-                            <div class="single-item m-1 m-sm-4">
-                                <span class="h2-font">
-                                    <i class="icon icon-money-bag"></i>
-                                </span>
-                                <p class="h4-font">Harga<br>Murah</p>
-                            </div>
-                            <!-- end of single item -->
-
-                        </div>
                     </div>
                     <!-- end of col -->
                     <div
