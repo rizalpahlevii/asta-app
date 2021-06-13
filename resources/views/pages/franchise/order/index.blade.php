@@ -109,8 +109,27 @@
                         </div>
                         <div class="d-flex justify-content-between mt-3">
                             <div>
+                                <input type="checkbox" id="pay-type" value="yes">
+                                <label for="">Use Defined Nominal</label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-3" id="pay-form">
+                            <div>
 
                                 <input type="text" class="form-control" name="pay" id="pay" placeholder="Pay">
+                            </div>
+                        </div>
+                        <div class="justify-content-between mt-3" style="display: none;" id="pay-select-form">
+                            <div>
+                                <select name="pay-select" id="pay-select" class="form-control">
+                                    <option disabled selected>Choose Option</option>
+                                    <option value="5000">5.000</option>
+                                    <option value="1000">10.000</option>
+                                    <option value="20000">20.000</option>
+                                    <option value="50000">50.000</option>
+                                    <option value="75000">75.000</option>
+                                    <option value="100000">100.000</option>
+                                </select>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mt-3">
@@ -143,6 +162,19 @@
 <script src="{{ asset('admin_template') }}/vendors/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
 <script>
     $(document).ready(function(){
+        $('#pay-type').click(function(){
+            if($(this).is(":checked")){
+                $('#pay-form').css('display','none');
+                $('#pay-select-form').css('display','block');
+            }else{
+                $('#pay-form').css('display','block');
+                $('#pay-select-form').css('display','none');
+
+            }
+        });
+        $('#pay-select').change(function(){
+            $('#pay').val($(this).val());
+        });
         cart = [];
         order_data = {};
         if(localStorage.cart){

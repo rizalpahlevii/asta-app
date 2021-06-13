@@ -49,7 +49,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Discount</td>
+                <td>Voucher Discount</td>
                 <td>:</td>
                 <td style="border-bottom:dashed 1px #333">@currency($order->voucher_discount)
                 </td>
@@ -64,6 +64,12 @@
                 <td>Pay</td>
                 <td>:</td>
                 <td>@currency($order->pay)
+                </td>
+            </tr>
+            <tr>
+                <td>Change</td>
+                <td>:</td>
+                <td>@currency($order->pay - $order->total_pay)
                 </td>
             </tr>
         </table>
