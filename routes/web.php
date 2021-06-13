@@ -52,6 +52,7 @@ Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franc
     $app->prefix('materials')->name('material.')->group(function ($app) {
         $app->get('/', [App\Http\Controllers\Franchise\RawMaterialController::class, 'index'])->name('index');
         $app->get('/create', [App\Http\Controllers\Franchise\RawMaterialController::class, 'create'])->name('create');
+        $app->get('/pdf', [App\Http\Controllers\Franchise\RawMaterialController::class, 'pdf'])->name('pdf');
         $app->post('/', [App\Http\Controllers\Franchise\RawMaterialController::class, 'store'])->name('store');
         $app->get('/{id}/edit', [App\Http\Controllers\Franchise\RawMaterialController::class, 'edit'])->name('edit');
         $app->put('/{id}', [App\Http\Controllers\Franchise\RawMaterialController::class, 'update'])->name('update');

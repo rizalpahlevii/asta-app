@@ -4,8 +4,16 @@
 @section('content')
 <div class="hk-pg-header">
     <h4 class="hk-pg-title">@yield('page')</h4>
-    <a href="{{ route('franchise.material.create') }}" class="btn btn-primary btn-rounded btn-sm">Create Material
-    </a>
+    <div class="row">
+        <div class="col-md-12">
+
+            <a href="{{ route('franchise.material.pdf') }}" class="btn btn-primary btn-rounded btn-sm">Export PDF
+            </a>
+            <a href="{{ route('franchise.material.create') }}" class="btn btn-primary btn-rounded btn-sm">Create
+                Material
+            </a>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-xl-12">
@@ -22,7 +30,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Stock Name</th>
-                                                    <th>Item</th>
+                                                    <th>Unit</th>
                                                     <th>Expired</th>
                                                     <th>Supplier</th>
                                                     <th>Jumlah</th>

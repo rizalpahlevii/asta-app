@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FranchiseSupplier;
 use App\Models\RawMaterial;
 use Illuminate\Http\Request;
+use PDF;
 
 class RawMaterialController extends Controller
 {
@@ -19,6 +20,13 @@ class RawMaterialController extends Controller
     {
         $materials = RawMaterial::with('supplier')->whereFranchise(auth()->user()->franchise->id)->get();
         return view('pages.franchise.material.index', compact('materials'));
+    }
+
+    public function pdf()
+    {
+        $materials = RawMaterial::with('supplier')->whereFranchise(auth()->user()->franchise->id)->get();
+        $pdf = PDF::loadView('pages.franchise.material.pdf', ['materials' => $materials]);
+        return $pdf->download('Material Report.pdf');
     }
 
     /**

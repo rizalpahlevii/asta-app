@@ -18,7 +18,7 @@ class CreateRawMaterialsTable extends Migration
             $table->string('name');
             $table->enum('unit', ['pcs', 'gram']);
             $table->date('expired');
-            $table->decimal('amount', 8, 2);
+            $table->integer('amount');
             $table->text('information');
             $table->integer('deductions_per_transaction');
             $table->unsignedBigInteger('supplier_id');
