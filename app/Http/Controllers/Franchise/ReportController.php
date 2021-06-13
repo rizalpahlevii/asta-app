@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\RawMaterial;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -62,6 +64,20 @@ class ReportController extends Controller
         $pdf = PDF::loadView('pages.franchise.report.pdf', $products);
         return $pdf->download('report.pdf');
     }
+
+    public function material()
+    {
+        $materials = RawMaterial::with('supplier')->whereFranchise(auth()->user()->franchise->id)->get();
+        return view('pages.franchise.report.material.index', compact('materials'));
+    }
+
+    public function materialPdf()
+    {
+        $materials = RawMaterial::with('supplier')->whereFranchise(auth()->user()->franchise->id)->get();
+        $pdf = PDF::loadView('pages.franchise.report.material.pdf', ['materials' => $materials]);
+        return $pdf->download('Incoming Material Report.pdf');
+    }
+
     public function transaction()
     {
         $year = Order::select(DB::raw('YEAR(created_at) as year'))->whereFranchise(auth()->user()->franchise->id)->distinct()->get();

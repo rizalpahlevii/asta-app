@@ -6,6 +6,7 @@ use App\Helpers\Flashdata;
 use App\Http\Controllers\Controller;
 use App\Models\FranchiseSupplier;
 use App\Models\RawMaterial;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -49,6 +50,7 @@ class RawMaterialController extends Controller
     public function store(Request $request)
     {
         $request->merge(['franchise_id' => auth()->user()->franchise->id]);
+        $request->merge(['incoming_history' => json_encode([['date' => Carbon::now()->toDateString(), 'stock' => $request->amount]])]);
         $validated = $request->validate([
             'name' => 'required',
             'supplier_id' => 'required',
@@ -57,8 +59,10 @@ class RawMaterialController extends Controller
             'unit' => 'required',
             'information' => 'required',
             'franchise_id' => 'required',
+            'incoming_history' => 'required',
             'deductions_per_transaction' => 'required'
         ]);
+
         $material = new RawMaterial();
         $material->create($validated);
         Flashdata::success_alert("Success to add Material");
@@ -111,6 +115,18 @@ class RawMaterialController extends Controller
         ]);
         $material =  RawMaterial::find($id);
         $material->update($validated);
+        if ($material->incoming_history == null) {
+            $json = [
+                ['date' => Carbon::now()->toDateString(), 'stock' => $request->amount]
+            ];
+        } {
+            $oldJson = json_decode($material->incoming_history, true);
+            $oldJson[] =
+                ['date' => Carbon::now()->toDateString(), 'stock' => $request->amount];
+            $json = json_encode($oldJson);
+        }
+        $material->incoming_history = $json;
+        $material->save();
         Flashdata::success_alert("Success to update Material");
         return redirect(route('franchise.material.index'));
     }

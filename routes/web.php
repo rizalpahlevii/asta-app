@@ -81,6 +81,8 @@ Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franc
 
         $app->get('/transactions', [App\Http\Controllers\Franchise\ReportController::class, 'transaction'])->name('transaction');
         $app->get('/transactions/pdf', [App\Http\Controllers\Franchise\ReportController::class, 'transactionPdf'])->name('transaction_pdf');
+        $app->get('/materials', [App\Http\Controllers\Franchise\ReportController::class, 'material'])->name('material');
+        $app->get('/materials/pdf', [App\Http\Controllers\Franchise\ReportController::class, 'materialPdf'])->name('material_pdf');
     });
     $app->prefix('settings')->name('setting.')->group(function ($app) {
         $app->get('/', [App\Http\Controllers\Franchise\SettingController::class, 'index'])->name('index');
