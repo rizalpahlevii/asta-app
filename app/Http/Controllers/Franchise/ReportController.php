@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Franchise;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -49,25 +50,38 @@ class ReportController extends Controller
     public function transaction()
     {
         $year = Order::select(DB::raw('YEAR(created_at) as year'))->whereFranchise(auth()->user()->franchise->id)->distinct()->get();
-
+        $employees = Employee::where('franchise_id', auth()->user()->franchise->id)->get();
         $orders = Order::whereFranchise(auth()->user()->franchise->id);
-        if (request()->get('month') && request()->get('year')) {
-            $orders = $orders->whereMonth('order_date', request()->get('month'));
-            $orders = $orders->whereYear('order_date', request()->get('year'));
+        if (request()->get('filter_by')) {
+            if (request()->get('filter_by') == "employee") {
+            } elseif (request()->get('filter_by') == "date") {
+                $orders = $orders->where('order_date', '>=', request()->get('start'))->where('order_date', '<=', request()->get('end'));
+            } elseif (request()->get('filter_by') == "month") {
+                $orders = $orders->whereMonth('order_date', request()->get('month'));
+            } elseif (request()->get('filter_by') == "year") {
+                $orders = $orders->whereYear('order_date', request()->get('year'));
+            }
         }
+
         if (request()->get('limit')) {
             $orders = $orders->limit(request()->get('limit'));
         }
         $orders = $orders->get();
-        return view('pages.franchise.report.transaction.index', compact('orders', 'year'));
+        return view('pages.franchise.report.transaction.index', compact('orders', 'year', 'employees'));
     }
     public function transactionPdf()
     {
 
         $orders = Order::whereFranchise(auth()->user()->franchise->id);
-        if (request()->get('month') && request()->get('year')) {
-            $orders = $orders->whereMonth('order_date', request()->get('month'));
-            $orders = $orders->whereYear('order_date', request()->get('year'));
+        if (request()->get('filter_by')) {
+            if (request()->get('filter_by') == "employee") {
+            } elseif (request()->get('filter_by') == "date") {
+                $orders = $orders->where('order_date', '>=', request()->get('start'))->where('order_date', '<=', request()->get('end'));
+            } elseif (request()->get('filter_by') == "month") {
+                $orders = $orders->whereMonth('order_date', request()->get('month'));
+            } elseif (request()->get('filter_by') == "year") {
+                $orders = $orders->whereYear('order_date', request()->get('year'));
+            }
         }
         if (request()->get('limit')) {
             $orders = $orders->limit(request()->get('limit'));
