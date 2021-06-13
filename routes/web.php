@@ -121,6 +121,7 @@ Route::name('admin.')->middleware(['auth', 'role:admin'])->prefix('backoffice')-
     $app->prefix('franchises')->name('franchise.')->group(function ($app) {
 
         $app->prefix('types')->name('type.')->group(function ($app) {
+            $app->get('/pdf', [App\Http\Controllers\Admin\FranchiseTypeController::class, 'pdf'])->name('pdf');
             $app->get('/', [App\Http\Controllers\Admin\FranchiseTypeController::class, 'index'])->name('index');
             $app->get('/create', [App\Http\Controllers\Admin\FranchiseTypeController::class, 'create'])->name('create');
             $app->post('/', [App\Http\Controllers\Admin\FranchiseTypeController::class, 'store'])->name('store');

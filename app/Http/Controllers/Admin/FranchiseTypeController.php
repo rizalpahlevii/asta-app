@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FranchiseType;
 use App\Helpers\Flashdata;
 use Illuminate\Http\Request;
+use PDF;
 
 class FranchiseTypeController extends Controller
 {
@@ -13,6 +14,12 @@ class FranchiseTypeController extends Controller
     {
         $types = FranchiseType::all();
         return view('pages.admin.franchise.type.index', compact('types'));
+    }
+    public function pdf()
+    {
+        $types = FranchiseType::all();
+        $pdf = PDF::loadView('pages.admin.franchise.type.pdf', ['types' => $types]);
+        return $pdf->download('Franchise Type Data.pdf');
     }
 
     public function create()

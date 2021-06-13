@@ -4,8 +4,16 @@
 @section('content')
 <div class="hk-pg-header">
     <h4 class="hk-pg-title">@yield('page')</h4>
-    <a href="{{ route('admin.franchise.type.create') }}" class="btn btn-primary btn-rounded btn-sm">Create Franchise
-        Type</a>
+    <div class="row">
+        <div class="col-md-12">
+
+            <a href="{{ route('admin.franchise.type.pdf') }}" class="btn btn-primary btn-rounded btn-sm">Export
+                PDF</a>
+            <a href="{{ route('admin.franchise.type.create') }}" class="btn btn-primary btn-rounded btn-sm">Create
+                Franchise
+                Type</a>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-xl-12">
