@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use PDF;
 
 class EmployeeController extends Controller
 {
@@ -19,6 +20,13 @@ class EmployeeController extends Controller
     {
         $employees = Employee::whereFranchise(auth()->user()->franchise->id)->get();
         return view('pages.franchise.employee.index', compact('employees'));
+    }
+
+    public function pdf()
+    {
+        $employees = Employee::whereFranchise(auth()->user()->franchise->id)->get();
+        $pdf = PDF::loadView('pages.franchise.employee.pdf', ['employees' => $employees]);
+        return $pdf->download('Employee Data.pdf');
     }
 
     /**

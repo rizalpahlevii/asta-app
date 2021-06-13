@@ -105,6 +105,7 @@ Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franc
 
 
 
+        $app->get('/pdf', [App\Http\Controllers\Franchise\EmployeeController::class, 'pdf'])->name('pdf');
         $app->get('/', [App\Http\Controllers\Franchise\EmployeeController::class, 'index'])->name('index');
         $app->get('/create', [App\Http\Controllers\Franchise\EmployeeController::class, 'create'])->name('create');
         $app->post('/', [App\Http\Controllers\Franchise\EmployeeController::class, 'store'])->name('store');
