@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('page','Reports')
+@section('page','Report Per Product')
 @section('content')
 <div class="hk-pg-header">
     <h4 class="hk-pg-title">@yield('page')</h4>
@@ -17,18 +17,34 @@
                                 <div class="col-md-3">
                                     <select name="month" id="month"
                                         class="form-control @error('month') is-invalid @enderror">
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03">March</option>
-                                        <option value="04">Aprril</option>
-                                        <option value="05">May</option>
-                                        <option value="06">June</option>
-                                        <option value="07">July</option>
-                                        <option value="08">August</option>
-                                        <option value="09">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">Decemmber</option>
+                                        <option value="01" {{ request()->get('month') == '01' ? 'selected' : '' }}>
+                                            January</option>
+                                        <option value="02" {{ request()->get('month') == '02' ? 'selected' : '' }}>
+                                            February</option>
+                                        <option value="03" {{ request()->get('month') == '03' ? 'selected' : '' }}>
+                                            March
+                                        </option>
+                                        <option value="04" {{ request()->get('month') == '04' ? 'selected' : '' }}>
+                                            Aprril</option>
+                                        <option value="05" {{ request()->get('month') == '05' ? 'selected' : '' }}>
+                                            May
+                                        </option>
+                                        <option value="06" {{ request()->get('month') == '06' ? 'selected' : '' }}>
+                                            June
+                                        </option>
+                                        <option value="07" {{ request()->get('month') == '07' ? 'selected' : '' }}>
+                                            July
+                                        </option>
+                                        <option value="08" {{ request()->get('month') == '08' ? 'selected' : '' }}>
+                                            August</option>
+                                        <option value="09" {{ request()->get('month') == '09' ? 'selected' : '' }}>
+                                            September</option>
+                                        <option value="10" {{ request()->get('month') == '10' ? 'selected' : '' }}>
+                                            October</option>
+                                        <option value="11" {{ request()->get('month') == '11' ? 'selected' : '' }}>
+                                            November</option>
+                                        <option value="12" {{ request()->get('month') == '12' ? 'selected' : '' }}>
+                                            December</option>
                                     </select>
 
                                 </div>
@@ -36,7 +52,9 @@
                                     <select name="year" id="year"
                                         class="form-control @error('year') is-invalid @enderror">
                                         @foreach ($year as $item)
-                                        <option value="{{ $item->year }}">{{ $item->year }}</option>
+                                        <option value="{{ $item->year }}"
+                                            {{ request()->get('year') == $item->year ? 'selected' : '' }}>
+                                            {{ $item->year }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -77,6 +95,7 @@
                                                 <th>Product Name</th>
                                                 <th>Amount</th>
                                                 <th>Price</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -101,6 +120,11 @@
                                                     {{ $amount }}
                                                 </td>
                                                 <td>@currency($price)</td>
+                                                <td>
+                                                    <a target="_blank"
+                                                        href="{{ route('franchise.report.per_product',$item->id) . '?month='.request()->get('month') .'&year='.request()->get('month') }} "
+                                                        class="btn btn-success">Report</a>
+                                                </td>
                                             </tr>
                                             @php
                                             $total += $price

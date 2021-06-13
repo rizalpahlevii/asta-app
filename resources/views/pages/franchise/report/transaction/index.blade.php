@@ -77,7 +77,7 @@
                                         <option value="11" {{ request()->get('month') == '11' ? 'selected' : '' }}>
                                             November</option>
                                         <option value="12" {{ request()->get('month') == '12' ? 'selected' : '' }}>
-                                            Decemmber</option>
+                                            December</option>
                                     </select>
 
                                 </div>

@@ -75,6 +75,7 @@ Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franc
     });
     $app->prefix('reports')->name('report.')->group(function ($app) {
         $app->get('/', [App\Http\Controllers\Franchise\ReportController::class, 'index'])->name('index');
+        $app->get('/product/{product_id}', [App\Http\Controllers\Franchise\ReportController::class, 'perProduct'])->name('per_product');
         $app->get('/pdf', [App\Http\Controllers\Franchise\ReportController::class, 'pdf'])->name('pdf');
 
         $app->get('/transactions', [App\Http\Controllers\Franchise\ReportController::class, 'transaction'])->name('transaction');

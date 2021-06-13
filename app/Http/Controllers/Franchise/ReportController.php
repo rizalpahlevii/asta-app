@@ -29,6 +29,21 @@ class ReportController extends Controller
         $products = $products->get();
         return view('pages.franchise.report.index', compact('products', 'year'));
     }
+    public function perProduct($productId)
+    {
+        $product = Product::find($id);
+        $orders = Order::where('franchise_id', auth()->user()->franchise->id);
+        $orders = $orders->with(['orderDetails' => function ($query) use ($productId) {
+            $query->where('product_id', $productId);
+        }]);
+        if (request()->get('month') && request()->get('year')) {
+            $orders = $orders->whereMonth('order_date', request()->get('month'));
+            $orders = $orders->whereYear('order_date', request()->get('year'));
+        }
+        $orders = $orders->get();
+        $pdf = PDF::loadView('pages.franchise.report.per_product_pdf', ['orders' => $orders, 'product' => $product]);
+        return $pdf->download('report.pdf');
+    }
     public function pdf()
     {
         $products = Product::whereNotNull('id');
