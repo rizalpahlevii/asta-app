@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('franchise')->get();
+        $users = User::where('role', 'admin')->get();
         return view('pages.admin.user.index', compact('users'));
     }
 
@@ -46,7 +46,6 @@ class UserController extends Controller
             'username' => ['required', 'min:3', Rule::unique('users', 'username')],
             'email' => ['required', 'min:3', Rule::unique('users', 'email')],
             'password' => 'required|min:8',
-            'role' => ['required', Rule::in(['admin', 'franchise'])]
         ]);
         $user = new User();
         $user->name = $request->name;
