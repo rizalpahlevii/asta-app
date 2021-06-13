@@ -113,6 +113,10 @@
                                                 <a class="nav-link"
                                                     href="{{ route('franchise.employee.salary.index') }}">Employee
                                                     Salary</a>
+                                            <li class="nav-item {{ set_active(['franchise.employee.report.index']) }}">
+                                                <a class="nav-link"
+                                                    href="{{ route('franchise.employee.report.index') }}">Employee
+                                                    Report</a>
                                         </ul>
                                     </li>
                                 </ul>

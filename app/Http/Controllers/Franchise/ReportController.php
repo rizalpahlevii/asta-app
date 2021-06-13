@@ -31,7 +31,7 @@ class ReportController extends Controller
     }
     public function perProduct($productId)
     {
-        $product = Product::find($id);
+        $product = Product::find($productId);
         $orders = Order::where('franchise_id', auth()->user()->franchise->id);
         $orders = $orders->with(['orderDetails' => function ($query) use ($productId) {
             $query->where('product_id', $productId);

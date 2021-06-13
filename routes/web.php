@@ -97,6 +97,10 @@ Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franc
             $app->put('/{id}', [App\Http\Controllers\Franchise\EmployeeSalaryController::class, 'update'])->name('update');
             $app->get('/{id}/delete', [App\Http\Controllers\Franchise\EmployeeSalaryController::class, 'destroy'])->name('destroy');
         });
+        $app->prefix('salary-reports')->name('report.')->group(function ($app) {
+            $app->get('/', [App\Http\Controllers\Franchise\EmployeeSalaryReportController::class, 'index'])->name('index');
+            $app->get('/pdf', [App\Http\Controllers\Franchise\EmployeeSalaryReportController::class, 'pdf'])->name('pdf');
+        });
 
 
 
