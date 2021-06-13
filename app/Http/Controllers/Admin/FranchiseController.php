@@ -26,6 +26,13 @@ class FranchiseController extends Controller
         return view('pages.admin.franchise.index', compact('franchises'));
     }
 
+    public function franchiseDataPdf()
+    {
+        $franchises = Franchise::with('franchiseType')->get();
+        $pdf = PDF::loadView('pages.admin.franchise.franchise-pdf', ['franchises' => $franchises]);
+        return $pdf->download('Franchise Data.pdf');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
