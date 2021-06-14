@@ -126,26 +126,36 @@
                     </li>
                 </ul>
             </li>
+
         </ul>
-        </li>
-        <li class="nav-item {{ set_active('franchise.report.index') }}">
-            <a class="nav-link" href="{{ route('franchise.report.index') }}">
+        <li
+            class="nav-item {{ set_active(['admin.franchise.type.index','admin.franchise.type.create','admin.franchise.type.index','admin.franchise.index','admin.franchise.create','admin.franchise.index']) }}">
+            <a class="nav-link" href="javascript:void(0);" data-toggle="collapse" data-target="#asd">
                 <i class="ion ion-ios-apps"></i>
-                <span class="nav-link-text">Report Per Product</span>
+                <span class="nav-link-text">Report </span>
             </a>
+            <ul id="asd" class="nav flex-column collapse collapse-level-1">
+                <li class="nav-item">
+                    <ul class="nav flex-column">
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ route('franchise.report.index') }}">Per Product</a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ route('franchise.report.transaction') }}">Transaction</a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ route('franchise.report.material') }}">Incoming Material</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
         </li>
-        <li class="nav-item {{ set_active('franchise.report.transaction') }}">
-            <a class="nav-link" href="{{ route('franchise.report.transaction') }}">
-                <i class="ion ion-ios-apps"></i>
-                <span class="nav-link-text">Transaction Report</span>
-            </a>
-        </li>
-        <li class="nav-item {{ set_active('franchise.report.material') }}">
-            <a class="nav-link" href="{{ route('franchise.report.material') }}">
-                <i class="ion ion-ios-apps"></i>
-                <span class="nav-link-text">Incoming Material Report</span>
-            </a>
-        </li>
+
+
         <li class="nav-item {{ set_active('franchise.setting.index') }}">
             <a class="nav-link" href="{{ route('franchise.setting.index') }}">
                 <i class="ion ion-ios-settings"></i>

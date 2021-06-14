@@ -98,7 +98,7 @@ class ReportController extends Controller
         if (request()->get('limit')) {
             $orders = $orders->limit(request()->get('limit'));
         }
-        $orders = $orders->get();
+        $orders = $orders->orderBy('created_at', 'desc')->get();
         return view('pages.franchise.report.transaction.index', compact('orders', 'year', 'employees'));
     }
     public function transactionPdf()
@@ -120,7 +120,7 @@ class ReportController extends Controller
             $orders = $orders->limit(request()->get('limit'));
         }
         $employee = Employee::find(request()->get('employee'));
-        $orders = $orders->get();
+        $orders = $orders->orderBy('created_at', 'desc')->get();
         view()->share('orders', $orders);
         $pdf = PDF::loadView('pages.franchise.report.transaction.pdf', ['orders' => $orders, 'employee' => $employee]);
         return $pdf->download('report.pdf');
