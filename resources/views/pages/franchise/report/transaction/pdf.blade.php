@@ -88,7 +88,7 @@
                     <th>Discount</th>
                     <th>Voucher Discount</th>
                     <th>Total Pay</th>
-                    <th>Employee</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -103,7 +103,7 @@
                     <td>@currency($item->discount )</td>
                     <td>@currency($item->voucher_discount )</td>
                     <td>@currency($item->total_pay )</td>
-                    <td>{{  $item->employee->name}}</td>
+
                 </tr>
                 @php
                 $total +=$item->total_pay
