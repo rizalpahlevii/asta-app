@@ -45,7 +45,7 @@
             padding-right: 10px;
             padding-left: 10px;
             padding-top: 30px;
-            padding-bottom: 10px;
+            padding-bottom: 30px;
 
             height: 100px;
             /* Should be removed. Only for demonstration */
@@ -98,7 +98,7 @@
                 @foreach ($orders as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->order_date }}</td>
+                    <td>{{ $item->order_date }} {{ $item->created_at->format('H:i') }}</td>
                     <td>@currency($item->normal_price)</td>
                     <td>@currency($item->discount )</td>
                     <td>@currency($item->voucher_discount )</td>

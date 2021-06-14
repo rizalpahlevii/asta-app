@@ -154,7 +154,7 @@
                                             @foreach ($orders as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->order_date }}</td>
+                                                <td>{{ $item->order_date }} {{ $item->created_at->format('H:i') }}</td>
                                                 <td>@currency($item->normal_price)</td>
                                                 <td>@currency($item->discount )</td>
                                                 <td>@currency($item->voucher_discount )</td>

@@ -116,7 +116,7 @@
                         <div class="d-flex justify-content-between mt-3" id="pay-form">
                             <div>
 
-                                <input type="text" class="form-control" name="pay" id="pay" placeholder="Pay">
+                                <input type="number" class="form-control" name="pay" id="pay" placeholder="Pay">
                             </div>
                         </div>
                         <div class="justify-content-between mt-3" style="display: none;" id="pay-select-form">
