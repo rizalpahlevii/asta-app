@@ -40,7 +40,7 @@ class EmployeeSalaryReportController extends Controller
                 }
             }
         })->get();
-        $pdf = PDF::loadView('pages.franchise.employee.reports.pdf', ['salaries' => $salaries]);
+        $pdf = PDF::loadView('pages.franchise.employee.reports.pdf', ['salaries' => $salaries, 'employee' => Employee::find(request()->get('employee'))]);
         return $pdf->download('Salary Report.pdf');
     }
 }

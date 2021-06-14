@@ -12094,7 +12094,7 @@ ul.list-icon {
   .btn-sky:hover,
   .btn-sky:focus {
     color: #fff;
-    background-color: #00a0df;
+    background-color: #264EEE;
     border-color: #00a0df; }
   .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active,
   .btn-sky:not(:disabled):not(.disabled).active,
@@ -12998,7 +12998,7 @@ ul.list-icon {
   .btn-outline-sky:hover,
   .btn-outline-sky:focus {
     color: #fff;
-    background-color: #00a0df;
+    background-color: #264EEE;
     border-color: #00a0df; }
   .btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active,
   .btn-outline-primary:not(:disabled):not(.disabled).active,

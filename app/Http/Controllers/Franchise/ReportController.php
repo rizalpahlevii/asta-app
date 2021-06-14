@@ -85,6 +85,7 @@ class ReportController extends Controller
         $orders = Order::whereFranchise(auth()->user()->franchise->id);
         if (request()->get('filter_by')) {
             if (request()->get('filter_by') == "employee") {
+                $orders = $orders->where('employee_id', request()->get('employee'));
             } elseif (request()->get('filter_by') == "date") {
                 $orders = $orders->where('order_date', '>=', request()->get('start'))->where('order_date', '<=', request()->get('end'));
             } elseif (request()->get('filter_by') == "month") {
@@ -106,6 +107,7 @@ class ReportController extends Controller
         $orders = Order::whereFranchise(auth()->user()->franchise->id);
         if (request()->get('filter_by')) {
             if (request()->get('filter_by') == "employee") {
+                $orders = $orders->where('employee_id', request()->get('employee'));
             } elseif (request()->get('filter_by') == "date") {
                 $orders = $orders->where('order_date', '>=', request()->get('start'))->where('order_date', '<=', request()->get('end'));
             } elseif (request()->get('filter_by') == "month") {
@@ -117,9 +119,10 @@ class ReportController extends Controller
         if (request()->get('limit')) {
             $orders = $orders->limit(request()->get('limit'));
         }
+        $employee = Employee::find(request()->get('employee'));
         $orders = $orders->get();
         view()->share('orders', $orders);
-        $pdf = PDF::loadView('pages.franchise.report.transaction.pdf', $orders);
+        $pdf = PDF::loadView('pages.franchise.report.transaction.pdf', ['orders' => $orders, 'employee' => $employee]);
         return $pdf->download('report.pdf');
     }
 }

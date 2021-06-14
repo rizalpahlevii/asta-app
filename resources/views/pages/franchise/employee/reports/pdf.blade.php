@@ -30,15 +30,54 @@
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: left;
-            background-color: #00A0DF;
+            background-color: #264EEE;
             color: white;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 50%;
+            padding-right: 10px;
+            padding-left: 10px;
+            padding-top: 30px;
+            padding-bottom: 10px;
+
+            height: 100px;
+            /* Should be removed. Only for demonstration */
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1 style="text-align: center;">Salaries Report</h1>
+        <div class="row" style="background-color:#264EEE; margin-bottom:30px;">
+            <div class="column"
+                style="color:#fff; font-size:25px; font-wight:bold;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                Salaries Report
+                @if (request()->get('filter_by') == "employee")
+                <p>Employee : {{ $employee->name }}</p>
+                @else
+
+                <p>Year : {{ request()->get('year') }}</p>
+                @endif
+
+            </div>
+            <div class="column">
+                <img src="{{ asset('assets_landing/img/brand-logo.png') }}" style="float: right; margin-right:80px;">
+            </div>
+        </div>
         <table class="table mb-0" border="1">
             <thead>
                 <tr>
