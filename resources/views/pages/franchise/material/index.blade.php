@@ -33,7 +33,7 @@
                                                     <th>Unit</th>
                                                     <th>Expired</th>
                                                     <th>Supplier</th>
-                                                    <th>Jumlah</th>
+                                                    <th>Amount</th>
                                                     <th>Information</th>
                                                     <th>Actions</th>
 
@@ -47,7 +47,8 @@
                                                     <td>{{ $item->unit }}</td>
                                                     <td>{{ $item->expired }}</td>
                                                     <td>{{ $item->supplier->name }}</td>
-                                                    <td>{{ $item->amount }}</td>
+                                                    <td>{{ $item->unit == "pcs" ?  intval($item->amount) : $item->amount }}
+                                                    </td>
                                                     <td>{{ $item->information }}</td>
 
                                                     <td>

@@ -90,7 +90,8 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->name }}</td>
-                    <td>{{ $item->unit }}</td>
+                    <td>{{ $item->unit == "pcs" ?  intval($item->amount) : $item->amount }}
+                    </td>
                     <td>{{ $item->expired }}</td>
                     <td>{{ $item->supplier->name }}</td>
                     <td>{{ $item->amount }}</td>
