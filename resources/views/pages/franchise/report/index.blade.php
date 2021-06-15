@@ -95,7 +95,7 @@
                                                 <th>Product Name</th>
                                                 <th>Amount</th>
                                                 <th>Price</th>
-                                                <th>Action</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -120,11 +120,8 @@
                                                     {{ $amount }}
                                                 </td>
                                                 <td>@currency($price)</td>
-                                                <td>
-                                                    <a target="_blank"
-                                                        href="{{ route('franchise.report.per_product',$item->id) . '?month='.request()->get('month') .'&year='.request()->get('month') }} "
-                                                        class="btn btn-success">Report</a>
-                                                </td>
+
+
                                             </tr>
                                             @php
                                             $total += $price
