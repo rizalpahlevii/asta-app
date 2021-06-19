@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\RawMaterial;
+use App\Models\StockReturn;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -123,6 +124,31 @@ class ReportController extends Controller
         $orders = $orders->orderBy('created_at', 'desc')->get();
         view()->share('orders', $orders);
         $pdf = PDF::loadView('pages.franchise.report.transaction.pdf', ['orders' => $orders, 'employee' => $employee]);
+        return $pdf->download('report.pdf');
+    }
+    public function return()
+    {
+        $rawMaterialsId = RawMaterial::where('franchise_id', auth()->user()->franchise->id)->get('id')->toArray();
+        $returns = StockReturn::with('rawMaterial.supplier')->whereIn('raw_material_id', $rawMaterialsId);
+        if (request()->get('start') || request()->get('end')) {
+            $returns = $returns->where('date', '>=', request()->get('start'))->where('date', '<=', request()->get('end'));
+        }
+
+
+        $returns = $returns->orderBy('created_at', 'desc')->get();
+        return view('pages.franchise.report.return.index', compact('returns'));
+    }
+    public function returnPdf()
+    {
+        $rawMaterialsId = RawMaterial::where('franchise_id', auth()->user()->franchise->id)->get('id')->toArray();
+        $returns = StockReturn::with('rawMaterial.supplier')->whereIn('raw_material_id', $rawMaterialsId);
+        if (request()->get('start') || request()->get('end')) {
+            $returns = $returns->where('date', '>=', request()->get('start'))->where('date', '<=', request()->get('end'));
+        }
+
+
+        $returns = $returns->orderBy('created_at', 'desc')->get();
+        $pdf = PDF::loadView('pages.franchise.report.return.pdf', ['returns' => $returns]);
         return $pdf->download('report.pdf');
     }
 }

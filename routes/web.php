@@ -58,6 +58,13 @@ Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franc
         $app->put('/{id}', [App\Http\Controllers\Franchise\RawMaterialController::class, 'update'])->name('update');
         $app->get('/{id}/delete', [App\Http\Controllers\Franchise\RawMaterialController::class, 'destroy'])->name('destroy');
     });
+    $app->prefix('returns')->name('return.')->group(function ($app) {
+        $app->get('/', [App\Http\Controllers\Franchise\StockReturnController::class, 'index'])->name('index');
+        $app->get('/create', [App\Http\Controllers\Franchise\StockReturnController::class, 'create'])->name('create');
+        $app->get('/pdf', [App\Http\Controllers\Franchise\StockReturnController::class, 'pdf'])->name('pdf');
+        $app->post('/', [App\Http\Controllers\Franchise\StockReturnController::class, 'store'])->name('store');
+        $app->get('/get-material/{materialId}', [App\Http\Controllers\Franchise\StockReturnController::class, 'getRawMaterialDetail'])->name('get_material');
+    });
     $app->prefix('products')->name('product.')->group(function ($app) {
         $app->get('/get-materials', [App\Http\Controllers\Franchise\ProductController::class, 'getMaterials'])->name('get_materials');
         $app->get('/', [App\Http\Controllers\Franchise\ProductController::class, 'index'])->name('index');
@@ -83,6 +90,8 @@ Route::name('franchise.')->middleware(['auth', 'role:franchise'])->prefix('franc
         $app->get('/transactions/pdf', [App\Http\Controllers\Franchise\ReportController::class, 'transactionPdf'])->name('transaction_pdf');
         $app->get('/materials', [App\Http\Controllers\Franchise\ReportController::class, 'material'])->name('material');
         $app->get('/materials/pdf', [App\Http\Controllers\Franchise\ReportController::class, 'materialPdf'])->name('material_pdf');
+        $app->get('/returns', [App\Http\Controllers\Franchise\ReportController::class, 'return'])->name('return');
+        $app->get('/returns/pdf', [App\Http\Controllers\Franchise\ReportController::class, 'returnPdf'])->name('return_pdf');
     });
     $app->prefix('settings')->name('setting.')->group(function ($app) {
         $app->get('/', [App\Http\Controllers\Franchise\SettingController::class, 'index'])->name('index');

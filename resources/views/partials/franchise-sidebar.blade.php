@@ -10,6 +10,7 @@
             <li class="nav-item {{ set_active([
                     'franchise.voucher.index','franchise.voucher.create','franchise.voucher.edit',
                     'franchise.supplier.index','franchise.supplier.create','franchise.supplier.edit',
+                    'franchise.supplier.index','franchise.supplier.create',
                     'franchise.product.index','franchise.product.create','franchise.product.edit',
                     'franchise.category.index','franchise.category.create','franchise.category.edit',
                     'franchise.employee.salary.index','franchise.employee.salary.create','franchise.employee.salary.edit',
@@ -86,6 +87,11 @@
                                                 <a class="nav-link"
                                                     href="{{ route('franchise.material.index') }}">Material</a>
                                             </li>
+                                            <li
+                                                class="nav-item {{ set_active(['franchise.return.index','franchise.return.create']) }}">
+                                                <a class="nav-link"
+                                                    href="{{ route('franchise.return.index') }}">Retur</a>
+                                            </li>
 
                                         </ul>
                                     </li>
@@ -148,6 +154,9 @@
 
                         <li class="nav-item ">
                             <a class="nav-link" href="{{ route('franchise.report.material') }}">Incoming Material</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ route('franchise.report.return') }}">Return</a>
                         </li>
 
                     </ul>

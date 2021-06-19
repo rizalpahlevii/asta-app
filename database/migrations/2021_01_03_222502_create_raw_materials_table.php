@@ -23,6 +23,7 @@ class CreateRawMaterialsTable extends Migration
             $table->integer('deductions_per_transaction');
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('franchise_id');
+            $table->json('incoming_history')->nullable();
             $table->timestamps();
         });
     }
