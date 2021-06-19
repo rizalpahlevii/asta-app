@@ -82,6 +82,7 @@ class StockReturnController extends Controller
                 }
             }
             $rawMaterial->incoming_history = json_encode($json);
+            $rawMaterial->amount -= $request->amount_return;
             $rawMaterial->save();
             DB::commit();
             Flashdata::success_alert("Success to create return");

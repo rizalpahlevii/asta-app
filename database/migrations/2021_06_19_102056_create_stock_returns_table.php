@@ -16,7 +16,7 @@ class CreateStockReturnsTable extends Migration
         Schema::create('stock_returns', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('raw_material_id');
-            $table->dateTime('date');
+            $table->date('date');
             $table->date('stock_entry_date');
             $table->integer('amount');
             $table->timestamps();
