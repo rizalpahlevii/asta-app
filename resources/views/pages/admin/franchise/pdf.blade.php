@@ -67,7 +67,15 @@
                 style="color:#fff; font-size:30px; font-wight:bold;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                 Franchise Income
                 {{ $franchise->name }}
-
+                <p style="font-size: 13px;">
+                    @if (request()->get('filter_by')=="date")
+                    {{ request()->get('start') }} - {{ request()->get('end') }}
+                    @elseif(request()->get('filter_by') == "month")
+                    {{ date('F', mktime(0, 0, 0, request()->get('month'), 10)) }} - {{ request()->get('year') }}
+                    @else
+                    {{ request()->get('year') }}
+                    @endif
+                </p>
             </div>
             <div class="column">
                 <img src="{{ asset('assets_landing/img/brand-logo.png') }}" style="float: right; margin-right:80px;">

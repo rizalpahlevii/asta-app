@@ -195,8 +195,16 @@ class FranchiseController extends Controller
     public function pdf($id)
     {
         $data = Order::selectRaw('year(order_date) as year, monthname(order_date) as month,sum(total_pay) as income')->whereFranchise($id);
-        if (request()->get('year')) {
-            $data = $data->whereYear('order_date', request()->get('year'));
+        if (request()->get('filter_by')) {
+            if (request()->get('filter_by') == "year") {
+                $data = $data->whereYear('order_date', request()->get('year'));
+            } elseif (request()->get('filter_by') == "month") {
+                $data = $data->whereYear('order_date', request()->get('year'));
+                $data = $data->whereMonth('order_date', request()->get('month'));
+            } elseif (request()->get('filter_by') == "date") {
+                $data = $data->where('order_date', '>=', request()->get('start'));
+                $data = $data->where('order_date', '<=', request()->get('end'));
+            }
         }
         $data = $data->groupBy('year', 'month')
             ->orderBy('month', 'desc')->get();
