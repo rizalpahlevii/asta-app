@@ -44,7 +44,7 @@
                                                 @endforeach
                                             </tbody>
                                             <tfoot>
-                                                <td colspan="2">Total</td>
+                                                <td colspan="3">Total</td>
                                                 <td colspan="2">@currency($sub)</td>
                                             </tfoot>
                                         </table>
