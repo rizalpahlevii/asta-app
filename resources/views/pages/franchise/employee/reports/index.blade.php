@@ -21,6 +21,9 @@
                                         <option value="employee"
                                             {{ request()->get('filter_by') == "employee" ? 'selected' : '' }}>Employee
                                         </option>
+                                        <option value="month"
+                                            {{ request()->get('filter_by') == "month" ? 'selected' : '' }}>
+                                            Month</option>
                                         <option value="year"
                                             {{ request()->get('filter_by') == "year" ? 'selected' : '' }}>
                                             Year</option>
@@ -38,6 +41,35 @@
                                 </div>
 
 
+                                <div class="col-md-3" style="display: none;" id="month-form" style="display: none;">
+                                    <select name="month" id="month"
+                                        class="form-control @error('month') is-invalid @enderror">
+                                        <option value="01" {{ request()->get('month')=="01" ? "selected":""}}>Jan
+                                        </option>
+                                        <option value="02" {{ request()->get('month')=="02" ? "selected":""}}>Feb
+                                        </option>
+                                        <option value="03" {{ request()->get('month')=="03" ? "selected":""}}>Mar
+                                        </option>
+                                        <option value="04" {{ request()->get('month')=="04" ? "selected":""}}>Apr
+                                        </option>
+                                        <option value="05" {{ request()->get('month')=="05" ? "selected":""}}>May
+                                        </option>
+                                        <option value="06" {{ request()->get('month')=="06" ? "selected":""}}>Jun
+                                        </option>
+                                        <option value="07" {{ request()->get('month')=="07" ? "selected":""}}>Jul
+                                        </option>
+                                        <option value="08" {{ request()->get('month')=="08" ? "selected":""}}>Aug
+                                        </option>
+                                        <option value="09" {{ request()->get('month')=="09" ? "selected":""}}>Sep
+                                        </option>
+                                        <option value="10" {{ request()->get('month')=="10" ? "selected":""}}>Oct
+                                        </option>
+                                        <option value="11" {{ request()->get('month')=="11" ? "selected":""}}>Nov
+                                        </option>
+                                        <option value="12" {{ request()->get('month')=="12" ? "selected":""}}>Dec
+                                        </option>
+                                    </select>
+                                </div>
                                 <div class="col-md-3" style="display: none;" id="year-form" style="display: none;">
                                     <select name="year" id="year"
                                         class="form-control @error('year') is-invalid @enderror">
@@ -88,7 +120,8 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->employee->name }}</td>
-                                                    <td>{{ $item->month }} / {{ $item->year }}</td>
+                                                    <td>{{ date('F', mktime(0, 0, 0, $item->month, 10)) }} -
+                                                        {{ $item->year }}</td>
                                                     <td>@currency($item->salary)</td>
                                                 </tr>
                                                 @php
@@ -97,8 +130,8 @@
                                                 @endforeach
                                             </tbody>
                                             <tfoot>
-                                                <td colspan="2">Total</td>
-                                                <td colspan="2">@currency($sub)</td>
+                                                <td colspan="3">Total</td>
+                                                <td>@currency($sub)</td>
                                             </tfoot>
                                         </table>
                                     </div>
@@ -128,10 +161,10 @@
             $('#month-form').css('display','none');
             $('#year-form').css('display','none');
         }else if(value == "month"){
-            $('#month-form').css('display','block');
             $('#employee-form').css('display','none');
             $('#date-form').css('display','none');
-            $('#year-form').css('display','none');
+            $('#month-form').css('display','block');
+            $('#year-form').css('display','block');
         }else if(value == "year"){
             $('#year-form').css('display','block');
             $('#employee-form').css('display','none');
@@ -143,10 +176,17 @@
             if(value == "employee"){
                 $('#employee-form').css('display','block');
                 $('#year-form').css('display','none');
+                $('#month-form').css('display','none');
             }else if(value == "year"){
                 $('#year-form').css('display','block');
+                $('#month-form').css('display','none');
                 $('#employee-form').css('display','none');
 
+            }else{
+
+                $('#month-form').css('display','block');
+                $('#year-form').css('display','block');
+                $('#employee-form').css('display','none');
             }
         });
 

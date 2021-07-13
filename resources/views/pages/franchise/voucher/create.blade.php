@@ -55,7 +55,7 @@
                                     <div class="form-group row">
                                         <label for="percent_value" class="col-sm-2 col-form-label">Percent Value</label>
                                         <div class="col-sm-6">
-                                            <input type="number" name="percent_value"
+                                            <input type="number" name="percent_value" max="100" min="1"
                                                 class="form-control @error('percent_value') is-invalid @enderror"
                                                 id="percent_value" placeholder="Percent Value"
                                                 value="{{ old('percent_value') }}">
@@ -123,6 +123,10 @@
             $('#percent_value').val(0);
         });
         $('#percent_value').keyup(function(){
+            if($(this).val() > 100){
+                alert('Maximum value discount 100%');
+                $(this).val(0);
+            }
             $('#nominal_value').val(0);
         });
     });

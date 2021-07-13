@@ -68,6 +68,9 @@
                 Salaries Report
                 @if (request()->get('filter_by') == "employee")
                 <p>Employee : {{ $employee->name }}</p>
+                @elseif(request()->get('filter_by') == "month")
+                <p style="font-size: 18px;">Month : {{ date('F', mktime(0, 0, 0, request()->get('month'), 10)) }}</p>
+                <p style="font-size: 18px;margin-bottom:20px;">Year : {{ request()->get('year') }}</p>
                 @else
 
                 <p>Year : {{ request()->get('year') }}</p>
@@ -96,7 +99,8 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->employee->name }}</td>
-                    <td>{{ $item->month }} / {{ $item->year }}</td>
+                    <td>{{ date('F', mktime(0, 0, 0, $item->month, 10)) }} -
+                        {{ $item->year }}</td>
                     <td>@currency($item->salary)</td>
                 </tr>
                 @php
@@ -105,7 +109,7 @@
                 @endforeach
             </tbody>
             <tfoot>
-                <td colspan="2">Total</td>
+                <td colspan="3">Total</td>
                 <td colspan="2">@currency($sub)</td>
             </tfoot>
         </table>

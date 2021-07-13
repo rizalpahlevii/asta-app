@@ -21,8 +21,11 @@ class EmployeeSalaryReportController extends Controller
             if (request()->get('filter_by') != null) {
                 if (request()->get('filter_by') == "employee") {
                     $query->where('employee_id', request()->get('employee'));
-                } else {
+                } elseif (request()->get('filter_by') == "year") {
                     $query->where('year', request()->get('year'));
+                } elseif (request()->get('filter_by') == "month") {
+                    $query->where('year', request()->get('year'));
+                    $query->where('month', request()->get('month'));
                 }
             }
         })->get();
@@ -35,12 +38,15 @@ class EmployeeSalaryReportController extends Controller
             if (request()->get('filter_by') != null) {
                 if (request()->get('filter_by') == "employee") {
                     $query->where('employee_id', request()->get('employee'));
-                } else {
+                } elseif (request()->get('filter_by') == "year") {
                     $query->where('year', request()->get('year'));
+                } elseif (request()->get('filter_by') == "month") {
+                    $query->where('year', request()->get('year'));
+                    $query->where('month', request()->get('month'));
                 }
             }
         })->get();
         $pdf = PDF::loadView('pages.franchise.employee.reports.pdf', ['salaries' => $salaries, 'employee' => Employee::find(request()->get('employee'))]);
-        return $pdf->download('Salary Report.pdf');
+        return $pdf->download('Salary Report ' . now()->toDateTimeString() . '.pdf');
     }
 }

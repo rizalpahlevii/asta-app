@@ -35,23 +35,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="month" class="col-sm-2 col-form-label">Year</label>
+                                        <label for="month" class="col-sm-2 col-form-label">Month</label>
                                         <div class="col-sm-6">
                                             <select name="month" id="month"
                                                 class="form-control @error('month') is-invalid @enderror">
-                                                <option disabled selected>CHoose Month</option>
-                                                <option value="01">Jan</option>
-                                                <option value="02">Feb</option>
-                                                <option value="03">Mar</option>
-                                                <option value="04">Apr</option>
-                                                <option value="05">May</option>
-                                                <option value="06">Jun</option>
-                                                <option value="07">Jul</option>
-                                                <option value="08">Aug</option>
-                                                <option value="09">Sep</option>
-                                                <option value="10">Oct</option>
-                                                <option value="11">Nov</option>
-                                                <option value="12">Dec</option>
+                                                <option disabled selected>Choose Month</option>
+                                                <option value="01" {{ date('m') != "01" ? "disabled":""}}>Jan</option>
+                                                <option value="02" {{ date('m') != "02" ? "disabled":""}}>Feb</option>
+                                                <option value="03" {{ date('m') != "03" ? "disabled":""}}>Mar</option>
+                                                <option value="04" {{ date('m') != "04" ? "disabled":""}}>Apr</option>
+                                                <option value="05" {{ date('m') != "05" ? "disabled":""}}>May</option>
+                                                <option value="06" {{ date('m') != "06" ? "disabled":""}}>Jun</option>
+                                                <option value="07" {{ date('m') != "07" ? "disabled":""}}>Jul</option>
+                                                <option value="08" {{ date('m') != "08" ? "disabled":""}}>Aug</option>
+                                                <option value="09" {{ date('m') != "09" ? "disabled":""}}>Sep</option>
+                                                <option value="10" {{ date('m') != "10" ? "disabled":""}}>Oct</option>
+                                                <option value="11" {{ date('m') != "11" ? "disabled":""}}>Nov</option>
+                                                <option value="12" {{ date('m') != "12" ? "disabled":""}}>Dec</option>
                                             </select>
 
                                             @error('month')
@@ -65,14 +65,22 @@
                                             <select name="year" id="year"
                                                 class="form-control @error('year') is-invalid @enderror">
                                                 <option disabled selected>Cooose Year</option>
-                                                <option value="2018">2018</option>
-                                                <option value="2019">2019</option>
-                                                <option value="2020">2020</option>
-                                                <option value="2021">2021</option>
-                                                <option value="2022">2022</option>
-                                                <option value="2023">2023</option>
-                                                <option value="2024">2024</option>
-                                                <option value="2025">2025</option>
+                                                <option value="2018" {{ date('Y') != "2018" ? "disabled" : "" }}>2018
+                                                </option>
+                                                <option value="2019" {{ date('Y') != "2019" ? "disabled" : "" }}>2019
+                                                </option>
+                                                <option value="2020" {{ date('Y') != "2020" ? "disabled" : "" }}>2020
+                                                </option>
+                                                <option value="2021" {{ date('Y') != "2021" ? "disabled" : "" }}>2021
+                                                </option>
+                                                <option value="2022" {{ date('Y') != "2022" ? "disabled" : "" }}>2022
+                                                </option>
+                                                <option value="2023" {{ date('Y') != "2023" ? "disabled" : "" }}>2023
+                                                </option>
+                                                <option value="2024" {{ date('Y') != "2024" ? "disabled" : "" }}>2024
+                                                </option>
+                                                <option value="2025" {{ date('Y') != "2025" ? "disabled" : "" }}>2025
+                                                </option>
                                             </select>
 
                                             @error('year')
@@ -81,7 +89,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="salary" class="col-sm-2 col-form-label">salary</label>
+                                        <label for="salary" class="col-sm-2 col-form-label">Salary</label>
                                         <div class="col-sm-6">
                                             <input type="text" name="salary"
                                                 class="form-control @error('salary') is-invalid @enderror" id="salary"

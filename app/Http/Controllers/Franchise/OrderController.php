@@ -76,7 +76,7 @@ class OrderController extends Controller
     }
     public function getProducts()
     {
-        $products = Product::whereFranchise(auth()->user()->franchise->id);
+        $products = Product::with('productMaterials.rawMaterial')->whereFranchise(auth()->user()->franchise->id);
         if (request()->get('keyword') != "") {
             $products = $products->where('name', 'like', '%' . request()->get('keyword') . '%');
         }

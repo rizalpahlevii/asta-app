@@ -15,12 +15,64 @@
 
                     <div class="row">
                         <div class="col-md-3">
+                            <select name="filter_by" id="filter_by" class="form-control">
+                                <option disabled selected>Choose Option</option>
+
+                                <option value="date" {{ request()->get('filter_by') == "date" ? 'selected' : '' }}>
+                                    Date</option>
+                                <option value="month" {{ request()->get('filter_by') == "month" ? 'selected' : '' }}>
+                                    Month</option>
+                                <option value="year" {{ request()->get('filter_by') == "year" ? 'selected' : '' }}>
+                                    Year</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 year-form" style="display: none;">
                             <select name="year" id="year" class="form-control @error('year') is-invalid @enderror">
                                 @foreach ($year as $item)
                                 <option value="{{ $item->year }}">{{ $item->year }}</option>
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="col-md-3 month-form" style="display: none;">
+                            <select name="month" id="month" class="form-control @error('month') is-invalid @enderror">
+                                <option value="01" {{ request()->get('month')=="01" ? "selected":""}}>Jan
+                                </option>
+                                <option value="02" {{ request()->get('month')=="02" ? "selected":""}}>Feb
+                                </option>
+                                <option value="03" {{ request()->get('month')=="03" ? "selected":""}}>Mar
+                                </option>
+                                <option value="04" {{ request()->get('month')=="04" ? "selected":""}}>Apr
+                                </option>
+                                <option value="05" {{ request()->get('month')=="05" ? "selected":""}}>May
+                                </option>
+                                <option value="06" {{ request()->get('month')=="06" ? "selected":""}}>Jun
+                                </option>
+                                <option value="07" {{ request()->get('month')=="07" ? "selected":""}}>Jul
+                                </option>
+                                <option value="08" {{ request()->get('month')=="08" ? "selected":""}}>Aug
+                                </option>
+                                <option value="09" {{ request()->get('month')=="09" ? "selected":""}}>Sep
+                                </option>
+                                <option value="10" {{ request()->get('month')=="10" ? "selected":""}}>Oct
+                                </option>
+                                <option value="11" {{ request()->get('month')=="11" ? "selected":""}}>Nov
+                                </option>
+                                <option value="12" {{ request()->get('month')=="12" ? "selected":""}}>Dec
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 date-form" style="display: none;">
+                            <input type="date" value="{{ request()->get('start') }}" class="form-control" name="start"
+                                id="start">
+                        </div>
+
+                        <div class="col-md-3 date-form" style="display: none;">
+                            <input type="date" value="{{ request()->get('end') }}" class="form-control" name="end"
+                                id="end">
+                        </div>
+
 
                         <div class="col-md-3">
                             <button type="submit" class="btn btn-primary btn-rouded">Search</button>
@@ -106,11 +158,52 @@
             }
             franchiseId = $('#franchise_id').val();
             year = $('#year').val();
-            let url = `{{ url('backoffice/franchises/${franchiseId}/income/pdf?year=${year}') }}`;
+            month = $('#month').val();
+            year = $('#year').val();
+            start = $('#start').val();
+            end = $('#end').val();
+
+            filterBy = $('#filter_by').val();
+            let url = `{{ url('backoffice/franchises/${franchiseId}/income/pdf?filter_by=${filterBy}&year=${year}&month=${month}&start=${start}&end=${end}') }}`;
             const parseResult = new DOMParser().parseFromString(url, "text/html");
             const parsedUrl = parseResult.documentElement.textContent;
             window.open(parsedUrl,'_blank');
         });
+
+
+        value = $('#filter_by').val();
+        if(value == "date"){
+            $('.date-form').css('display','block');
+            $('.month-form').css('display','none');
+            $('.year-form').css('display','none');
+        }else if(value == "month"){
+            $('.date-form').css('display','none');
+            $('.month-form').css('display','block');
+            $('.year-form').css('display','block');
+        }else if(value == "year"){
+            $('.year-form').css('display','block');
+            $('.month-form').css('display','none');
+            $('.date-form').css('display','none');
+        }
+
+        $('#filter_by').change(function(){
+            value = $(this).val();
+            if(value == "date"){
+                $('.date-form').css('display','block');
+                $('.month-form').css('display','none');
+                $('.year-form').css('display','none');
+            }else if(value == "month"){
+                $('.date-form').css('display','none');
+                $('.month-form').css('display','block');
+                $('.year-form').css('display','block');
+            }else if(value == "year"){
+                $('.year-form').css('display','block');
+                $('.month-form').css('display','none');
+                $('.date-form').css('display','none');
+            }
+        });
+
+
     });
 </script>
 @endpush
