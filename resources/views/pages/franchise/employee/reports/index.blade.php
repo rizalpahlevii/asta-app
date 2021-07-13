@@ -198,8 +198,7 @@
             employee = $('#employee').val();
             month = $('#month').val();
             year = $('#year').val();
-            limit = $('#limit').val();
-            let url = `{{ url('franchise/employees/salary-reports/pdf?filter_by=${filter}&year=${year}&employee=${employee}') }}`;
+            let url = `{{ url('franchise/employees/salary-reports/pdf?filter_by=${filter}&year=${year}&month=${month}&employee=${employee}') }}`;
             const parseResult = new DOMParser().parseFromString(url, "text/html");
             const parsedUrl = parseResult.documentElement.textContent;
             window.open(parsedUrl,'_blank');
